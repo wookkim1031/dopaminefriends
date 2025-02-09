@@ -14,6 +14,10 @@
 		E4F5E2112D5920A9004061D1 /* DopamineFriendsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E2102D5920A9004061D1 /* DopamineFriendsTests.swift */; };
 		E4F5E21B2D5920A9004061D1 /* DopamineFriendsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E21A2D5920A9004061D1 /* DopamineFriendsUITests.swift */; };
 		E4F5E21D2D5920A9004061D1 /* DopamineFriendsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E21C2D5920A9004061D1 /* DopamineFriendsUITestsLaunchTests.swift */; };
+		E4F5E22D2D5920EE004061D1 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = E4F5E22C2D5920EE004061D1 /* FirebaseCore */; };
+		E4F5E22F2D5920F2004061D1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E4F5E22E2D5920F2004061D1 /* FirebaseFirestore */; };
+		E4F5E2312D592115004061D1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4F5E2302D592115004061D1 /* GoogleService-Info.plist */; };
+		E4F5E2342D592221004061D1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E2332D592221004061D1 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,8 @@
 		E4F5E2162D5920A9004061D1 /* DopamineFriendsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DopamineFriendsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4F5E21A2D5920A9004061D1 /* DopamineFriendsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DopamineFriendsUITests.swift; sourceTree = "<group>"; };
 		E4F5E21C2D5920A9004061D1 /* DopamineFriendsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DopamineFriendsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E4F5E2302D592115004061D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E4F5E2332D592221004061D1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4F5E22D2D5920EE004061D1 /* FirebaseCore in Frameworks */,
+				E4F5E22F2D5920F2004061D1 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +86,7 @@
 				E4F5E20F2D5920A9004061D1 /* DopamineFriendsTests */,
 				E4F5E2192D5920A9004061D1 /* DopamineFriendsUITests */,
 				E4F5E1FD2D5920A8004061D1 /* Products */,
+				E4F5E22B2D5920EE004061D1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,6 +103,8 @@
 		E4F5E1FE2D5920A8004061D1 /* DopamineFriends */ = {
 			isa = PBXGroup;
 			children = (
+				E4F5E2322D592212004061D1 /* Views */,
+				E4F5E2302D592115004061D1 /* GoogleService-Info.plist */,
 				E4F5E1FF2D5920A8004061D1 /* DopamineFriendsApp.swift */,
 				E4F5E2012D5920A8004061D1 /* ContentView.swift */,
 				E4F5E2032D5920A9004061D1 /* Assets.xcassets */,
@@ -127,6 +138,21 @@
 			path = DopamineFriendsUITests;
 			sourceTree = "<group>";
 		};
+		E4F5E22B2D5920EE004061D1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E4F5E2322D592212004061D1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E4F5E2332D592221004061D1 /* LoginView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +169,10 @@
 			dependencies = (
 			);
 			name = DopamineFriends;
+			packageProductDependencies = (
+				E4F5E22C2D5920EE004061D1 /* FirebaseCore */,
+				E4F5E22E2D5920F2004061D1 /* FirebaseFirestore */,
+			);
 			productName = DopamineFriends;
 			productReference = E4F5E1FC2D5920A8004061D1 /* DopamineFriends.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +245,9 @@
 				Base,
 			);
 			mainGroup = E4F5E1F32D5920A8004061D1;
+			packageReferences = (
+				E4F5E22A2D5920E5004061D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = E4F5E1FD2D5920A8004061D1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,6 +266,7 @@
 			files = (
 				E4F5E2072D5920A9004061D1 /* Preview Assets.xcassets in Resources */,
 				E4F5E2042D5920A9004061D1 /* Assets.xcassets in Resources */,
+				E4F5E2312D592115004061D1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4F5E2342D592221004061D1 /* LoginView.swift in Sources */,
 				E4F5E2022D5920A8004061D1 /* ContentView.swift in Sources */,
 				E4F5E2002D5920A8004061D1 /* DopamineFriendsApp.swift in Sources */,
 			);
@@ -424,6 +459,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"DopamineFriends/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DopamineFriends/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -452,6 +488,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"DopamineFriends/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DopamineFriends/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -582,6 +619,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E4F5E22A2D5920E5004061D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E4F5E22C2D5920EE004061D1 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E4F5E22A2D5920E5004061D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		E4F5E22E2D5920F2004061D1 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E4F5E22A2D5920E5004061D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E4F5E1F42D5920A8004061D1 /* Project object */;
 }
