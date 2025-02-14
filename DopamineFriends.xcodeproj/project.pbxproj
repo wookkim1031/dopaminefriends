@@ -18,6 +18,7 @@
 		E4F5E22F2D5920F2004061D1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E4F5E22E2D5920F2004061D1 /* FirebaseFirestore */; };
 		E4F5E2312D592115004061D1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4F5E2302D592115004061D1 /* GoogleService-Info.plist */; };
 		E4F5E2342D592221004061D1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E2332D592221004061D1 /* LoginView.swift */; };
+		F650CA962D5FF797008A09BD /* BettingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F650CA952D5FF797008A09BD /* BettingDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		E4F5E21C2D5920A9004061D1 /* DopamineFriendsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DopamineFriendsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E4F5E2302D592115004061D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E4F5E2332D592221004061D1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		F650CA952D5FF797008A09BD /* BettingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BettingDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				E4F5E2302D592115004061D1 /* GoogleService-Info.plist */,
 				E4F5E1FF2D5920A8004061D1 /* DopamineFriendsApp.swift */,
 				E4F5E2012D5920A8004061D1 /* ContentView.swift */,
+				F650CA952D5FF797008A09BD /* BettingDetailView.swift */,
 				E4F5E2032D5920A9004061D1 /* Assets.xcassets */,
 				E4F5E2052D5920A9004061D1 /* Preview Content */,
 			);
@@ -292,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4F5E2342D592221004061D1 /* LoginView.swift in Sources */,
+				F650CA962D5FF797008A09BD /* BettingDetailView.swift in Sources */,
 				E4F5E2022D5920A8004061D1 /* ContentView.swift in Sources */,
 				E4F5E2002D5920A8004061D1 /* DopamineFriendsApp.swift in Sources */,
 			);
