@@ -29,7 +29,7 @@ struct ContentView: View {
             if privyManager.isLoading {
                 ProgressView()
             } else if case .authenticated = privyManager.authState {
-                Text ("You are logged in")
+                    BettingDetailView()
             } else {
                 Button {
                     privyManager.signInWithApple()
