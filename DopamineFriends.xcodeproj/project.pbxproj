@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E413169E2D5BFFDE00A7C72D /* PrivyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E413169D2D5BFFDE00A7C72D /* PrivyManager.swift */; };
+		E41316A02D5C03A200A7C72D /* Privy in Frameworks */ = {isa = PBXBuildFile; productRef = E413169F2D5C03A200A7C72D /* Privy */; };
+		E4925E7B2D5F9FF000A6EC70 /* walletview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4925E7A2D5F9FF000A6EC70 /* walletview.swift */; };
 		E4F5E2002D5920A8004061D1 /* DopamineFriendsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E1FF2D5920A8004061D1 /* DopamineFriendsApp.swift */; };
 		E4F5E2022D5920A8004061D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E2012D5920A8004061D1 /* ContentView.swift */; };
 		E4F5E2042D5920A9004061D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4F5E2032D5920A9004061D1 /* Assets.xcassets */; };
@@ -38,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E413169D2D5BFFDE00A7C72D /* PrivyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivyManager.swift; sourceTree = "<group>"; };
+		E4925E7A2D5F9FF000A6EC70 /* walletview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walletview.swift; sourceTree = "<group>"; };
 		E4F5E1FC2D5920A8004061D1 /* DopamineFriends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DopamineFriends.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4F5E1FF2D5920A8004061D1 /* DopamineFriendsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DopamineFriendsApp.swift; sourceTree = "<group>"; };
 		E4F5E2012D5920A8004061D1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E41316A02D5C03A200A7C72D /* Privy in Frameworks */,
 				E4F5E22D2D5920EE004061D1 /* FirebaseCore in Frameworks */,
 				E4F5E22F2D5920F2004061D1 /* FirebaseFirestore in Frameworks */,
 			);
@@ -109,6 +115,7 @@
 				E4F5E2012D5920A8004061D1 /* ContentView.swift */,
 				E4F5E2032D5920A9004061D1 /* Assets.xcassets */,
 				E4F5E2052D5920A9004061D1 /* Preview Content */,
+				E413169D2D5BFFDE00A7C72D /* PrivyManager.swift */,
 			);
 			path = DopamineFriends;
 			sourceTree = "<group>";
@@ -149,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				E4F5E2332D592221004061D1 /* LoginView.swift */,
+				E4925E7A2D5F9FF000A6EC70 /* walletview.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -172,6 +180,7 @@
 			packageProductDependencies = (
 				E4F5E22C2D5920EE004061D1 /* FirebaseCore */,
 				E4F5E22E2D5920F2004061D1 /* FirebaseFirestore */,
+				E413169F2D5C03A200A7C72D /* Privy */,
 			);
 			productName = DopamineFriends;
 			productReference = E4F5E1FC2D5920A8004061D1 /* DopamineFriends.app */;
@@ -247,6 +256,7 @@
 			mainGroup = E4F5E1F32D5920A8004061D1;
 			packageReferences = (
 				E4F5E22A2D5920E5004061D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				E413169C2D5BFE1F00A7C72D /* XCRemoteSwiftPackageReference "privy-ios" */,
 			);
 			productRefGroup = E4F5E1FD2D5920A8004061D1 /* Products */;
 			projectDirPath = "";
@@ -293,7 +303,9 @@
 			files = (
 				E4F5E2342D592221004061D1 /* LoginView.swift in Sources */,
 				E4F5E2022D5920A8004061D1 /* ContentView.swift in Sources */,
+				E413169E2D5BFFDE00A7C72D /* PrivyManager.swift in Sources */,
 				E4F5E2002D5920A8004061D1 /* DopamineFriendsApp.swift in Sources */,
+				E4925E7B2D5F9FF000A6EC70 /* walletview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,6 +635,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E413169C2D5BFE1F00A7C72D /* XCRemoteSwiftPackageReference "privy-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/privy-io/privy-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.0;
+			};
+		};
 		E4F5E22A2D5920E5004061D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -634,6 +654,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E413169F2D5C03A200A7C72D /* Privy */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E413169C2D5BFE1F00A7C72D /* XCRemoteSwiftPackageReference "privy-ios" */;
+			productName = Privy;
+		};
 		E4F5E22C2D5920EE004061D1 /* FirebaseCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E4F5E22A2D5920E5004061D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
