@@ -14,7 +14,7 @@ struct DopamineFriendsApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BettingDetailView()
         }
     }
 }
