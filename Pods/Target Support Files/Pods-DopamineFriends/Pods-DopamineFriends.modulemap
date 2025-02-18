@@ -1,0 +1,6 @@
+framework module Pods_DopamineFriends {
+  umbrella header "Pods-DopamineFriends-umbrella.h"
+
+  export *
+  module * { export * }
+}

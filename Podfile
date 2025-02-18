@@ -2,14 +2,18 @@
 # platform :ios, '9.0'
 
 target 'DopamineFriends' do
+  # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  pod 'PrivySDK'
+
+  # Pods for DopamineFriends
 
   target 'DopamineFriendsTests' do
     inherit! :search_paths
+    # Pods for testing
   end
 
   target 'DopamineFriendsUITests' do
+    # Pods for testing
   end
 
 end

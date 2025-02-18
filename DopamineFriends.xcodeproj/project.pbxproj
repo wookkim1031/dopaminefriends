@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BEDB850F5B68C6E323FFF0C /* Pods_DopamineFriendsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8AF428B214CA9FD5678E6CA /* Pods_DopamineFriendsTests.framework */; };
+		4AC9901284121888AC308477 /* Pods_DopamineFriends_DopamineFriendsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB129AF5953D16F1D83C622 /* Pods_DopamineFriends_DopamineFriendsUITests.framework */; };
 		E413169E2D5BFFDE00A7C72D /* PrivyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E413169D2D5BFFDE00A7C72D /* PrivyManager.swift */; };
 		E41316A02D5C03A200A7C72D /* Privy in Frameworks */ = {isa = PBXBuildFile; productRef = E413169F2D5C03A200A7C72D /* Privy */; };
-		E4925E7B2D5F9FF000A6EC70 /* walletview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4925E7A2D5F9FF000A6EC70 /* walletview.swift */; };
+		E47926962D628C45007C0D1A /* SolanaSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E47926952D628C45007C0D1A /* SolanaSwift */; };
+		E47DF3E92D61EA74009743EC /* RadioButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47DF3E82D61EA74009743EC /* RadioButtonHelper.swift */; };
 		E4F5E2002D5920A8004061D1 /* DopamineFriendsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E1FF2D5920A8004061D1 /* DopamineFriendsApp.swift */; };
 		E4F5E2022D5920A8004061D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E2012D5920A8004061D1 /* ContentView.swift */; };
 		E4F5E2042D5920A9004061D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4F5E2032D5920A9004061D1 /* Assets.xcassets */; };
@@ -42,8 +45,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C5D2FF8031B8A9D268D0289 /* Pods-DopamineFriendsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DopamineFriendsTests.debug.xcconfig"; path = "Target Support Files/Pods-DopamineFriendsTests/Pods-DopamineFriendsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6AB129AF5953D16F1D83C622 /* Pods_DopamineFriends_DopamineFriendsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DopamineFriends_DopamineFriendsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E058651A2E2063A441F7FCD /* Pods-DopamineFriends.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DopamineFriends.release.xcconfig"; path = "Target Support Files/Pods-DopamineFriends/Pods-DopamineFriends.release.xcconfig"; sourceTree = "<group>"; };
+		936C888883F8DAFD20467338 /* Pods-DopamineFriends-DopamineFriendsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DopamineFriends-DopamineFriendsUITests.debug.xcconfig"; path = "Target Support Files/Pods-DopamineFriends-DopamineFriendsUITests/Pods-DopamineFriends-DopamineFriendsUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		94394E7C056DBE6735ADFCA6 /* Pods-DopamineFriends-DopamineFriendsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DopamineFriends-DopamineFriendsUITests.release.xcconfig"; path = "Target Support Files/Pods-DopamineFriends-DopamineFriendsUITests/Pods-DopamineFriends-DopamineFriendsUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9E0E2F8C0304C7F8B8E1DC36 /* Pods_DopamineFriends.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DopamineFriends.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A22CCC53FE54CDF348C9D6FE /* Pods-DopamineFriends.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DopamineFriends.debug.xcconfig"; path = "Target Support Files/Pods-DopamineFriends/Pods-DopamineFriends.debug.xcconfig"; sourceTree = "<group>"; };
+		A46CEF8F69DE115332D02E25 /* Pods-DopamineFriendsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DopamineFriendsTests.release.xcconfig"; path = "Target Support Files/Pods-DopamineFriendsTests/Pods-DopamineFriendsTests.release.xcconfig"; sourceTree = "<group>"; };
+		A8AF428B214CA9FD5678E6CA /* Pods_DopamineFriendsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DopamineFriendsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E413169D2D5BFFDE00A7C72D /* PrivyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivyManager.swift; sourceTree = "<group>"; };
-		E4925E7A2D5F9FF000A6EC70 /* walletview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = walletview.swift; sourceTree = "<group>"; };
+		E47DF3E82D61EA74009743EC /* RadioButtonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonHelper.swift; sourceTree = "<group>"; };
 		E4F5E1FC2D5920A8004061D1 /* DopamineFriends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DopamineFriends.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4F5E1FF2D5920A8004061D1 /* DopamineFriendsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DopamineFriendsApp.swift; sourceTree = "<group>"; };
 		E4F5E2012D5920A8004061D1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,6 +78,7 @@
 			files = (
 				E41316A02D5C03A200A7C72D /* Privy in Frameworks */,
 				E4F5E22D2D5920EE004061D1 /* FirebaseCore in Frameworks */,
+				E47926962D628C45007C0D1A /* SolanaSwift in Frameworks */,
 				E4F5E22F2D5920F2004061D1 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BEDB850F5B68C6E323FFF0C /* Pods_DopamineFriendsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,12 +95,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AC9901284121888AC308477 /* Pods_DopamineFriends_DopamineFriendsUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A8EF6952A1AB27C6AB8FC55 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A22CCC53FE54CDF348C9D6FE /* Pods-DopamineFriends.debug.xcconfig */,
+				7E058651A2E2063A441F7FCD /* Pods-DopamineFriends.release.xcconfig */,
+				936C888883F8DAFD20467338 /* Pods-DopamineFriends-DopamineFriendsUITests.debug.xcconfig */,
+				94394E7C056DBE6735ADFCA6 /* Pods-DopamineFriends-DopamineFriendsUITests.release.xcconfig */,
+				3C5D2FF8031B8A9D268D0289 /* Pods-DopamineFriendsTests.debug.xcconfig */,
+				A46CEF8F69DE115332D02E25 /* Pods-DopamineFriendsTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E47DF3E72D61EA64009743EC /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				E47DF3E82D61EA74009743EC /* RadioButtonHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		E4F5E1F32D5920A8004061D1 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +131,7 @@
 				E4F5E2192D5920A9004061D1 /* DopamineFriendsUITests */,
 				E4F5E1FD2D5920A8004061D1 /* Products */,
 				E4F5E22B2D5920EE004061D1 /* Frameworks */,
+				9A8EF6952A1AB27C6AB8FC55 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -151,6 +188,9 @@
 		E4F5E22B2D5920EE004061D1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9E0E2F8C0304C7F8B8E1DC36 /* Pods_DopamineFriends.framework */,
+				6AB129AF5953D16F1D83C622 /* Pods_DopamineFriends_DopamineFriendsUITests.framework */,
+				A8AF428B214CA9FD5678E6CA /* Pods_DopamineFriendsTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -158,8 +198,8 @@
 		E4F5E2322D592212004061D1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E47DF3E72D61EA64009743EC /* Helper */,
 				E4F5E2332D592221004061D1 /* LoginView.swift */,
-				E4925E7A2D5F9FF000A6EC70 /* walletview.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -171,6 +211,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4F5E2202D5920A9004061D1 /* Build configuration list for PBXNativeTarget "DopamineFriends" */;
 			buildPhases = (
+				60BB3D2B253953CDCB8537D6 /* [CP] Check Pods Manifest.lock */,
 				E4F5E1F82D5920A8004061D1 /* Sources */,
 				E4F5E1F92D5920A8004061D1 /* Frameworks */,
 				E4F5E1FA2D5920A8004061D1 /* Resources */,
@@ -184,6 +225,7 @@
 				E4F5E22C2D5920EE004061D1 /* FirebaseCore */,
 				E4F5E22E2D5920F2004061D1 /* FirebaseFirestore */,
 				E413169F2D5C03A200A7C72D /* Privy */,
+				E47926952D628C45007C0D1A /* SolanaSwift */,
 			);
 			productName = DopamineFriends;
 			productReference = E4F5E1FC2D5920A8004061D1 /* DopamineFriends.app */;
@@ -193,6 +235,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4F5E2232D5920A9004061D1 /* Build configuration list for PBXNativeTarget "DopamineFriendsTests" */;
 			buildPhases = (
+				3D0B239C82250AD0524ADB88 /* [CP] Check Pods Manifest.lock */,
 				E4F5E2082D5920A9004061D1 /* Sources */,
 				E4F5E2092D5920A9004061D1 /* Frameworks */,
 				E4F5E20A2D5920A9004061D1 /* Resources */,
@@ -211,6 +254,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E4F5E2262D5920A9004061D1 /* Build configuration list for PBXNativeTarget "DopamineFriendsUITests" */;
 			buildPhases = (
+				D3E08FC01044D8269531FD7A /* [CP] Check Pods Manifest.lock */,
 				E4F5E2122D5920A9004061D1 /* Sources */,
 				E4F5E2132D5920A9004061D1 /* Frameworks */,
 				E4F5E2142D5920A9004061D1 /* Resources */,
@@ -260,6 +304,7 @@
 			packageReferences = (
 				E4F5E22A2D5920E5004061D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				E413169C2D5BFE1F00A7C72D /* XCRemoteSwiftPackageReference "privy-ios" */,
+				E47926942D628C2B007C0D1A /* XCRemoteSwiftPackageReference "solana-swift" */,
 			);
 			productRefGroup = E4F5E1FD2D5920A8004061D1 /* Products */;
 			projectDirPath = "";
@@ -299,17 +344,86 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3D0B239C82250AD0524ADB88 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DopamineFriendsTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		60BB3D2B253953CDCB8537D6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DopamineFriends-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3E08FC01044D8269531FD7A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DopamineFriends-DopamineFriendsUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E4F5E1F82D5920A8004061D1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				E4F5E2342D592221004061D1 /* LoginView.swift in Sources */,
+				E47DF3E92D61EA74009743EC /* RadioButtonHelper.swift in Sources */,
 				F650CA962D5FF797008A09BD /* BettingDetailView.swift in Sources */,
 				E4F5E2022D5920A8004061D1 /* ContentView.swift in Sources */,
 				E413169E2D5BFFDE00A7C72D /* PrivyManager.swift in Sources */,
 				E4F5E2002D5920A8004061D1 /* DopamineFriendsApp.swift in Sources */,
-				E4925E7B2D5F9FF000A6EC70 /* walletview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +581,7 @@
 		};
 		E4F5E2212D5920A9004061D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A22CCC53FE54CDF348C9D6FE /* Pods-DopamineFriends.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -497,6 +612,7 @@
 		};
 		E4F5E2222D5920A9004061D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E058651A2E2063A441F7FCD /* Pods-DopamineFriends.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -527,6 +643,7 @@
 		};
 		E4F5E2242D5920A9004061D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3C5D2FF8031B8A9D268D0289 /* Pods-DopamineFriendsTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -546,6 +663,7 @@
 		};
 		E4F5E2252D5920A9004061D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A46CEF8F69DE115332D02E25 /* Pods-DopamineFriendsTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -565,6 +683,7 @@
 		};
 		E4F5E2272D5920A9004061D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 936C888883F8DAFD20467338 /* Pods-DopamineFriends-DopamineFriendsUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -582,6 +701,7 @@
 		};
 		E4F5E2282D5920A9004061D1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94394E7C056DBE6735ADFCA6 /* Pods-DopamineFriends-DopamineFriendsUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -647,6 +767,14 @@
 				minimumVersion = 1.8.0;
 			};
 		};
+		E47926942D628C2B007C0D1A /* XCRemoteSwiftPackageReference "solana-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/p2p-org/solana-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		E4F5E22A2D5920E5004061D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -662,6 +790,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E413169C2D5BFE1F00A7C72D /* XCRemoteSwiftPackageReference "privy-ios" */;
 			productName = Privy;
+		};
+		E47926952D628C45007C0D1A /* SolanaSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E47926942D628C2B007C0D1A /* XCRemoteSwiftPackageReference "solana-swift" */;
+			productName = SolanaSwift;
 		};
 		E4F5E22C2D5920EE004061D1 /* FirebaseCore */ = {
 			isa = XCSwiftPackageProductDependency;

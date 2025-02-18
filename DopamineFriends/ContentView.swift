@@ -12,9 +12,12 @@
 //- structured task: Ensure completion before the scope exits. Used with async and await 
 import SwiftUI
 import Foundation
+import PrivySDK
 
 struct ContentView: View {
     @State private var isLogginIn = false
+    @State private var isLoggingOut = false
+    @State private var selectedChain = SupportedChain.sepolia
     @ObservedObject var privyManager: PrivyManager
     @State private var email = ""
     @State private var otp = ""
@@ -29,12 +32,56 @@ struct ContentView: View {
             if privyManager.isLoading {
                 ProgressView()
             } else if case .authenticated = privyManager.authState {
-                    BettingDetailView()
+                Button{
+                    privyManager.signOut()
+                } label: {
+                    Text("Sign out")
+                }
+                Button {
+                    privyManager.createSolanaWallet()
+                } label : {
+                    Text ("Create Solana wallet")
+                }
+                Button {
+                    privyManager.createETHWallet()
+                } label : {
+                    Text ("Create ETH wallet")
+                }
+                Button {
+                    privyManager.signSolanaMessage()
+                } label : {
+                    Text ("Sign solana message")
+                }
+                Button {
+                    privyManager.signETHMessage()
+                } label : {
+                    Text ("Sign eth message")
+                }
+                switch privyManager.embeddedWalletState {
+                    case .connecting:
+                        ConnectingView()
+                        .onAppear {
+                                        print("Connecting!")
+                                    }
+                    case .connected:
+                        connectedView()
+                        .onAppear {
+                                        print("Connected!")
+                                    }
+                    case .error:
+                        Text("Error on connecting wallet")
+                    @unknown default:
+                        EmptyView()
+                        .onAppear {
+                                        print("Empty View!")
+                                    }
+                }
+                BettingDetailView()
             } else {
                 Button {
                     privyManager.signInWithApple()
                 } label : {
-                    Text ("Login with Apple")
+                    Text ("Sign in with Apple")
                 }
                 
                 Button {
@@ -139,5 +186,72 @@ struct TokenStateView: View {
             .buttonStyle(.borderedProminent)
         }
         .padding()
+    }
+}
+
+extension ContentView {
+    @ViewBuilder
+    func ConnectingView() -> some View {
+        VStack {
+            Text("Connecting Wallet")
+            
+        }
+    }
+    
+    @ViewBuilder
+    func connectedView() -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(SupportedChain.allCases, id: \.self) { chain in
+                    RadioButtonHelper(
+                        chain: chain,
+                        selectedNetwork: $selectedChain
+                    )
+                }
+            }
+        }
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Text("State: ")
+                Text("\(privyManager.embeddedWalletState.toString)").fontWeight(.light)
+            }
+            HStack {
+                Text("Chain: ")
+                // returns the text as it is. As the verbatim argument
+                Text(verbatim: "\(privyManager.chain.chainInfo.id) (\(privyManager.chain.chainInfo.name)").fontWeight(.light)
+            }
+            HStack {
+                Text("Balance: ")
+                Text("\(privyManager.balance) \(privyManager.chain.chainInfo.nativeCurrency.symbol)").fontWeight(.light)
+            }
+            HStack {
+                Text("Address: ")
+                if let address = privyManager.selectedWallet?.address {
+                    Text("0x...\(String(address.suffix(8)))").fontWeight(.light).onAppear{
+                        print("0x...\(String(address.suffix(8)))")
+                    }
+                } else {
+                    Text("N/A ").fontWeight(.light)
+                }
+            }
+            HStack{
+                Text("Send Transaction: ")
+                if let address = privyManager.selectedWallet?.address {
+                    Button {
+                        Task {
+                                do {
+                                    try await privyManager.sendTransaction(address: address, amount: "3000")
+                                } catch {
+                                    print("Failed to send transaction: \(error)")
+                                }
+                            }
+                    } label : {
+                        Text ("Send Transaction")
+                    }
+                } else {
+                    Text("N/A")
+                }
+            }
+        }
     }
 }
