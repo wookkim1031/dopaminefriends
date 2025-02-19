@@ -76,7 +76,6 @@ struct ContentView: View {
                                         print("Empty View!")
                                     }
                 }
-                BettingDetailView()
             } else {
                 Button {
                     privyManager.signInWithApple()

@@ -25,6 +25,7 @@
 		E4F5E2312D592115004061D1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4F5E2302D592115004061D1 /* GoogleService-Info.plist */; };
 		E4F5E2342D592221004061D1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E2332D592221004061D1 /* LoginView.swift */; };
 		F650CA962D5FF797008A09BD /* BettingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F650CA952D5FF797008A09BD /* BettingDetailView.swift */; };
+		F69D2CA62D666FAB0038AF69 /* BettingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69D2CA52D666FAB0038AF69 /* BettingListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		E4F5E2302D592115004061D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E4F5E2332D592221004061D1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F650CA952D5FF797008A09BD /* BettingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BettingDetailView.swift; sourceTree = "<group>"; };
+		F69D2CA52D666FAB0038AF69 /* BettingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BettingListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 				E4F5E2032D5920A9004061D1 /* Assets.xcassets */,
 				E4F5E2052D5920A9004061D1 /* Preview Content */,
 				E413169D2D5BFFDE00A7C72D /* PrivyManager.swift */,
+				F69D2CA52D666FAB0038AF69 /* BettingListView.swift */,
 			);
 			path = DopamineFriends;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				E4F5E2022D5920A8004061D1 /* ContentView.swift in Sources */,
 				E413169E2D5BFFDE00A7C72D /* PrivyManager.swift in Sources */,
 				E4F5E2002D5920A8004061D1 /* DopamineFriendsApp.swift in Sources */,
+				F69D2CA62D666FAB0038AF69 /* BettingListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

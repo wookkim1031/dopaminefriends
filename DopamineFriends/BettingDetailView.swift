@@ -2,71 +2,80 @@
 //  BettingDetailView.swift
 //  DopamineFriends
 //
-//  Created by Minseon Kim on 14.02.25.
+//  Created by Minseon Kim on 19.02.25.
 //
 
 import Foundation
 import SwiftUI
-import Charts //   Swift Charts 사용
+import Charts // Swift Charts 사용
 
 struct BettingDetailView: View {
+    let itemId: String
     @State private var votes: [Double] = [100, 70, 30] // 투표 수 상태 저장
+
+    let bettingData: [String: (title: String, options: [String], dateUntil: String)] = [
+        "1": ("How many tweets will Elon Musk post in February?", ["100-200", "200-300", "300-400"], "Feb 28, 2025 12:00"),
+        "2": ("Will Johan pass the malo exam?", ["Yes", "No"], "Feb 28, 2025 12:00")
+    ]
 
     var totalVotes: Double {
         return votes.reduce(0, +)
     }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                
-                // Header
-                VStack(alignment: .center) {
-                    Text("How many female informatikers will be there in RWTH 2024")
-                        .font(.title2)
-                        .bold()
-                        .multilineTextAlignment(.center)
-                    
-                    Text("Feb 23, 2025 12:00")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    
-                }
-                .padding()
-                
-                // 반도넛 차트
-                SemiDonutChartView(votes: $votes)
-                    .frame(height: 150)
-                    .padding()
-                
-                // Voting Buttons
-                VStack(spacing: 8) {
-                    ForEach(0..<votes.count, id: \.self) { index in
-                        Button("Vote for option \(index + 1) (\(Int(votes[index])) votes)") {
-                            votes[index] += 1 // 투표 증가
-                        }
-                        .buttonStyle(CustomButtonStyle(color: colors[index]))
+        if let data = bettingData[itemId] {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    // Header
+                    VStack(alignment: .center) {
+                        Text(data.title)
+                            .font(.title2)
+                            .bold()
+                            .multilineTextAlignment(.center)
+                        
+                        Text(data.dateUntil)
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
                     }
+                    .padding()
+                    
+                    // 반도넛 차트
+                    SemiDonutChartView(votes: $votes)
+                        .frame(height: 150)
+                        .padding()
+                    
+                    // Voting Buttons
+                    VStack(spacing: 8) {
+                        ForEach(0..<data.options.count, id: \..self) { index in
+                            Button("Vote for \(data.options[index]) (\(Int(votes[index])) votes)") {
+                                votes[index] += 1 // 투표 증가
+                            }
+                            .buttonStyle(CustomButtonStyle(color: colors[index % colors.count]))
+                        }
+                    }
+                    .padding(.horizontal)
+                    
+                    // Previous Data Section
+                                    SectionView(title: "Previous Data in 2023") {
+                                        previousDataView()
+                                    }
+                                    .padding()
+                                    
+                                    // Prediction Section (Line Graph 추가)
+                                    SectionView(title: "Prediction (Yearly Student Count)") {
+                                        LineGraphView()
+                                            .frame(height: 250)
+                                    }
+                                    .padding()
                 }
-                .padding(.horizontal)
-                
-                // Previous Data Section
-                SectionView(title: "Previous Data in 2023") {
-                    previousDataView()
-                }
-                .padding()
-                
-                // Prediction Section (Line Graph 추가)
-                SectionView(title: "Prediction (Yearly Student Count)") {
-                    LineGraphView()
-                        .frame(height: 250)
-                }
-                .padding()
-                
+                .padding(.bottom, 20)
             }
-            .padding(.bottom, 20)
+            .navigationTitle("Betting Detail")
+        } else {
+            Text("Invalid Betting ID")
+                .font(.title2)
+                .foregroundColor(.red)
         }
-        .navigationTitle("Prediction Detail")
     }
 }
 
@@ -117,8 +126,7 @@ struct LineGraphView: View {
     }
 }
 
-
-//   색상 배열 (각 옵션별 색상 설정)
+// 색상 배열 (각 옵션별 색상 설정)
 let colors: [Color] = [Color.purple, Color.orange, Color.green]
 
 struct SemiDonutChartView: View {
@@ -135,17 +143,15 @@ struct SemiDonutChartView: View {
     var body: some View {
         GeometryReader { geometry in
             let width = geometry.size.width
-            let outerRadius: CGFloat = width / 2  //   버튼과 동일한 너비
-            let innerRadius: CGFloat = outerRadius * 0.6 //   내부 구멍 크기 조정
+            let outerRadius: CGFloat = width / 2
+            let innerRadius: CGFloat = outerRadius * 0.6
 
             ZStack {
                 let angles = calculateAngles()
 
-                ForEach(0..<percentages.count, id: \.self) { index in
+                ForEach(0..<percentages.count, id: \..self) { index in
                     Path { path in
                         let center = CGPoint(x: width / 2, y: geometry.size.height)
-                        
-                        //   바깥 반원 그리기
                         path.move(to: center)
                         path.addArc(
                             center: center,
@@ -154,13 +160,12 @@ struct SemiDonutChartView: View {
                             endAngle: angles[index].end,
                             clockwise: false
                         )
-                        path.addLine(to: center) //   중심으로 라인 추가
+                        path.addLine(to: center)
                     }
-                    .fill(colors[index])
+                    .fill(colors[index % colors.count])
                     .animation(.easeInOut(duration: 0.5), value: votes)
                 }
 
-                //   내부 원을 그려서 중앙을 투명하게 만들기
                 Path { path in
                     let center = CGPoint(x: width / 2, y: geometry.size.height)
                     path.addArc(
@@ -171,7 +176,7 @@ struct SemiDonutChartView: View {
                         clockwise: false
                     )
                 }
-                .fill(Color.white) //   내부를 흰색으로 채워 도넛 모양 만들기
+                .fill(Color.white)
             }
             .frame(width: width, height: 150)
         }
@@ -187,12 +192,10 @@ struct SemiDonutChartView: View {
             angleData.append((start: startAngle, end: endAngle))
             startAngle = endAngle
         }
-
         return angleData
     }
 }
 
-// Button Style
 struct CustomButtonStyle: ButtonStyle {
     var color: Color
     
@@ -206,6 +209,7 @@ struct CustomButtonStyle: ButtonStyle {
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
     }
 }
+
 
 // SectionView for Data Display
 struct SectionView<Content: View>: View {
@@ -271,8 +275,10 @@ struct DataRow: View {
     }
 }
 
+
 struct BettingDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BettingDetailView()
+        BettingDetailView(itemId: "1")
     }
 }
+
