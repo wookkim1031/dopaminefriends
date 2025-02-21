@@ -18,7 +18,7 @@ struct ContentView: View {
     @State private var isLogginIn = false
     @State private var isLoggingOut = false
     @State private var selectedChain = SupportedChain.sepolia
-    @ObservedObject var privyManager: PrivyManager
+    @StateObject var privyManager: PrivyManager
     @State private var email = ""
     @State private var otp = ""
     @State private var showEmailInput = false
@@ -26,51 +26,15 @@ struct ContentView: View {
     @State private var showTokenStateSheet = false
     @State private var activeSheet: ActiveSheet? = nil
     @State private var navigateToProfile = false
-
+    
     var body : some View {
-        NavigationStack {
+        NavigationView {
             VStack {
                 if privyManager.isLoading {
                     ProgressView()
                 } else if case .authenticated = privyManager.authState {
-                    Button {
-                        privyManager.createSolanaWallet()
-                    } label : {
-                        Text ("Create Solana wallet")
-                    }
-                    Button {
-                        privyManager.createETHWallet()
-                    } label : {
-                        Text ("Create ETH wallet")
-                    }
-                    Button {
-                        privyManager.signSolanaMessage()
-                    } label : {
-                        Text ("Sign solana message")
-                    }
-                    Button {
-                        privyManager.signETHMessage()
-                    } label : {
-                        Text ("Sign eth message")
-                    }
-                    
-                    
-                    switch privyManager.embeddedWalletState {
-                    case .connecting:
-                        ConnectingView()
-                            .onAppear { print("Connecting!") }
-                    case .connected:
-                        connectedView()
-                            .onAppear { print("Connected!") }
-                    case .error:
-                        Text("Error on connecting wallet")
-                    @unknown default:
-                        EmptyView()
-                            .onAppear { print("Empty View!") }
-                    }
-                    
-                    BettingDetailView()
-                    
+                   
+                    BettingListView()
                     NavigationLink(destination: ProfileView(privyManager: privyManager)) {
                         Text("Profile")
                             .padding()
@@ -79,7 +43,6 @@ struct ContentView: View {
                             .cornerRadius(10)
                     }
                     .buttonStyle(PlainButtonStyle())
-                    
                 } else {
                     Button {
                         privyManager.signInWithApple()
@@ -95,14 +58,50 @@ struct ContentView: View {
                         }
                     }
                 }
-            }
-            .navigationTitle("Home")
-            .navigationDestination(isPresented: $navigateToProfile) {
-                ProfileView(privyManager: privyManager)
+            }.sheet(isPresented: $showEmailInput) {
+                EmailEntryView(email: $email) {
+                    Task {
+                        let tokenState  = await privyManager.signInWithEmail(email: email)
+                        showEmailInput = false
+                        
+                        if tokenstate {
+                            showTokenStateSheet = true
+                        }
+                    }
+                }
+            }.sheet(item: $activeSheet) { sheet in
+                switch sheet {
+                case .emailInput:
+                    EmailEntryView(email: $email) {
+                        Task {
+                            let tokenState = await privyManager.signInWithEmail(email: email)
+                            if tokenState {
+                                activeSheet = .tokenState
+                            } else {
+                                activeSheet = nil
+                            }
+                        }
+                    }
+                case .tokenState:
+                    TokenStateView(otp: $otp) {
+                        Task {
+                            let authState = await privyManager.signWithEmailOTP(email: email, otp: otp)
+                            activeSheet = nil
+                            
+                            if case .authenticated = authState {
+                                print("User authenticated")
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 }
+    /*            .navigationTitle("Home")
+     .navigationDestination(isPresented: $navigateToProfile) {
+         ProfileView(privyManager: privyManager)*/
+
 
 enum ActiveSheet: Identifiable {
     case emailInput
