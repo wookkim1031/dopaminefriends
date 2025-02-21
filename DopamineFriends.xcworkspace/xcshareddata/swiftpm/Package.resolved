@@ -1,5 +1,5 @@
 {
-  "originHash" : "dadd2777becfbe820663a74f39c9e1a4dab4d483d7d2604b7903ecb2c8ac86ad",
+  "originHash" : "f939f93fb048085b74dfac425f0e927d4df7ec80f43794ec1d3238de95f906d1",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -69,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/gtm-session-fetcher.git",
       "state" : {
-        "revision" : "4d70340d55d7d07cc2fdf8e8125c4c126c1d5f35",
-        "version" : "4.4.0"
+        "revision" : "3cdb78efb79b4a5383c3911488d8025bfc545b5e",
+        "version" : "4.3.0"
       }
     },
     {
@@ -130,10 +130,10 @@
     {
       "identity" : "solana-swift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/wannabehero/solana-swift",
+      "location" : "https://github.com/wookkim1031/solana-swift",
       "state" : {
-        "branch" : "main",
-        "revision" : "3e85bd35133953ec0768d47446bc7eedb5914e19"
+        "revision" : "010a3e3a4cb583ccc3150a04d4270ad37d784ee8",
+        "version" : "5.0.0"
       }
     },
     {

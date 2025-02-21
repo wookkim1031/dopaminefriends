@@ -10,9 +10,10 @@
 		0BEDB850F5B68C6E323FFF0C /* Pods_DopamineFriendsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8AF428B214CA9FD5678E6CA /* Pods_DopamineFriendsTests.framework */; };
 		4AC9901284121888AC308477 /* Pods_DopamineFriends_DopamineFriendsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB129AF5953D16F1D83C622 /* Pods_DopamineFriends_DopamineFriendsUITests.framework */; };
 		E413169E2D5BFFDE00A7C72D /* PrivyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E413169D2D5BFFDE00A7C72D /* PrivyManager.swift */; };
-		E41316A02D5C03A200A7C72D /* Privy in Frameworks */ = {isa = PBXBuildFile; productRef = E413169F2D5C03A200A7C72D /* Privy */; };
-		E47926962D628C45007C0D1A /* SolanaSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E47926952D628C45007C0D1A /* SolanaSwift */; };
+		E44DF0392D67EE4200161380 /* Privy in Frameworks */ = {isa = PBXBuildFile; productRef = E44DF0382D67EE4200161380 /* Privy */; };
+		E44DF03B2D67EE4600161380 /* SolanaSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E44DF03A2D67EE4600161380 /* SolanaSwift */; };
 		E47DF3E92D61EA74009743EC /* RadioButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47DF3E82D61EA74009743EC /* RadioButtonHelper.swift */; };
+		E4D54C492D650F8E006AEACA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D54C482D650F8E006AEACA /* ProfileView.swift */; };
 		E4F5E2002D5920A8004061D1 /* DopamineFriendsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E1FF2D5920A8004061D1 /* DopamineFriendsApp.swift */; };
 		E4F5E2022D5920A8004061D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E2012D5920A8004061D1 /* ContentView.swift */; };
 		E4F5E2042D5920A9004061D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4F5E2032D5920A9004061D1 /* Assets.xcassets */; };
@@ -56,6 +57,7 @@
 		A8AF428B214CA9FD5678E6CA /* Pods_DopamineFriendsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DopamineFriendsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E413169D2D5BFFDE00A7C72D /* PrivyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivyManager.swift; sourceTree = "<group>"; };
 		E47DF3E82D61EA74009743EC /* RadioButtonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonHelper.swift; sourceTree = "<group>"; };
+		E4D54C482D650F8E006AEACA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E4F5E1FC2D5920A8004061D1 /* DopamineFriends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DopamineFriends.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4F5E1FF2D5920A8004061D1 /* DopamineFriendsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DopamineFriendsApp.swift; sourceTree = "<group>"; };
 		E4F5E2012D5920A8004061D1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,9 +78,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E41316A02D5C03A200A7C72D /* Privy in Frameworks */,
+				E44DF0392D67EE4200161380 /* Privy in Frameworks */,
 				E4F5E22D2D5920EE004061D1 /* FirebaseCore in Frameworks */,
-				E47926962D628C45007C0D1A /* SolanaSwift in Frameworks */,
+				E44DF03B2D67EE4600161380 /* SolanaSwift in Frameworks */,
 				E4F5E22F2D5920F2004061D1 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,6 +125,13 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		E4D54C4D2D65120F006AEACA /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		E4F5E1F32D5920A8004061D1 = {
 			isa = PBXGroup;
 			children = (
@@ -148,10 +157,12 @@
 		E4F5E1FE2D5920A8004061D1 /* DopamineFriends */ = {
 			isa = PBXGroup;
 			children = (
+				E4D54C4D2D65120F006AEACA /* ViewModels */,
 				E4F5E2322D592212004061D1 /* Views */,
 				E4F5E2302D592115004061D1 /* GoogleService-Info.plist */,
 				E4F5E1FF2D5920A8004061D1 /* DopamineFriendsApp.swift */,
 				E4F5E2012D5920A8004061D1 /* ContentView.swift */,
+				E4D54C482D650F8E006AEACA /* ProfileView.swift */,
 				F650CA952D5FF797008A09BD /* BettingDetailView.swift */,
 				E4F5E2032D5920A9004061D1 /* Assets.xcassets */,
 				E4F5E2052D5920A9004061D1 /* Preview Content */,
@@ -224,8 +235,8 @@
 			packageProductDependencies = (
 				E4F5E22C2D5920EE004061D1 /* FirebaseCore */,
 				E4F5E22E2D5920F2004061D1 /* FirebaseFirestore */,
-				E413169F2D5C03A200A7C72D /* Privy */,
-				E47926952D628C45007C0D1A /* SolanaSwift */,
+				E44DF0382D67EE4200161380 /* Privy */,
+				E44DF03A2D67EE4600161380 /* SolanaSwift */,
 			);
 			productName = DopamineFriends;
 			productReference = E4F5E1FC2D5920A8004061D1 /* DopamineFriends.app */;
@@ -303,8 +314,8 @@
 			mainGroup = E4F5E1F32D5920A8004061D1;
 			packageReferences = (
 				E4F5E22A2D5920E5004061D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				E413169C2D5BFE1F00A7C72D /* XCRemoteSwiftPackageReference "privy-ios" */,
-				E47926942D628C2B007C0D1A /* XCRemoteSwiftPackageReference "solana-swift" */,
+				E443A87D2D67EDB400FBE303 /* XCRemoteSwiftPackageReference "privy-ios" */,
+				E443A87E2D67EDBB00FBE303 /* XCRemoteSwiftPackageReference "solana-swift" */,
 			);
 			productRefGroup = E4F5E1FD2D5920A8004061D1 /* Products */;
 			projectDirPath = "";
@@ -423,6 +434,7 @@
 				F650CA962D5FF797008A09BD /* BettingDetailView.swift in Sources */,
 				E4F5E2022D5920A8004061D1 /* ContentView.swift in Sources */,
 				E413169E2D5BFFDE00A7C72D /* PrivyManager.swift in Sources */,
+				E4D54C492D650F8E006AEACA /* ProfileView.swift in Sources */,
 				E4F5E2002D5920A8004061D1 /* DopamineFriendsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -759,20 +771,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E413169C2D5BFE1F00A7C72D /* XCRemoteSwiftPackageReference "privy-ios" */ = {
+		E443A87D2D67EDB400FBE303 /* XCRemoteSwiftPackageReference "privy-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/privy-io/privy-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.8.0;
+				minimumVersion = 1.8.1;
 			};
 		};
-		E47926942D628C2B007C0D1A /* XCRemoteSwiftPackageReference "solana-swift" */ = {
+		E443A87E2D67EDBB00FBE303 /* XCRemoteSwiftPackageReference "solana-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/p2p-org/solana-swift";
+			repositoryURL = "https://github.com/wannabehero/solana-swift";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				branch = main;
+				kind = branch;
 			};
 		};
 		E4F5E22A2D5920E5004061D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
@@ -786,14 +798,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E413169F2D5C03A200A7C72D /* Privy */ = {
+		E44DF0382D67EE4200161380 /* Privy */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E413169C2D5BFE1F00A7C72D /* XCRemoteSwiftPackageReference "privy-ios" */;
+			package = E443A87D2D67EDB400FBE303 /* XCRemoteSwiftPackageReference "privy-ios" */;
 			productName = Privy;
 		};
-		E47926952D628C45007C0D1A /* SolanaSwift */ = {
+		E44DF03A2D67EE4600161380 /* SolanaSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E47926942D628C2B007C0D1A /* XCRemoteSwiftPackageReference "solana-swift" */;
+			package = E443A87E2D67EDBB00FBE303 /* XCRemoteSwiftPackageReference "solana-swift" */;
 			productName = SolanaSwift;
 		};
 		E4F5E22C2D5920EE004061D1 /* FirebaseCore */ = {
