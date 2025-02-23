@@ -3,28 +3,28 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBcu2S01iLj73e02dSslJ3ZqVcWPzEvtFY</string>
+	<string>AIzaSyDO2_87TyLHdq1R_fMMHR1lTrFeUJnbhac</string>
 	<key>GCM_SENDER_ID</key>
-	<string>620081011886</string>
+	<string>1007016312771</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>io.kimkim.DopamineFriends</string>
 	<key>PROJECT_ID</key>
-	<string>dopaminefriends-80b45</string>
+	<string>dopaminefriends-4ac8a</string>
 	<key>STORAGE_BUCKET</key>
-	<string>dopaminefriends-80b45.firebasestorage.app</string>
+	<string>dopaminefriends-4ac8a.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:620081011886:ios:8a545b09a50f697441a13f</string>
+	<string>1:1007016312771:ios:4b6305d538e95d62800776</string>
 </dict>
 </plist>

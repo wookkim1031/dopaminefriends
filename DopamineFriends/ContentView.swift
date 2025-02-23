@@ -13,8 +13,18 @@
 import SwiftUI
 import Foundation
 import PrivySDK
+import FirebaseCore
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
+}
 
 struct ContentView: View {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State private var isLogginIn = false
     @State private var isLoggingOut = false
     @State private var selectedChain = SupportedChain.sepolia
@@ -35,6 +45,7 @@ struct ContentView: View {
                 } else if case .authenticated = privyManager.authState {
                    
                     BettingListView()
+                    CreateBettingView(privyManager: privyManager)
                     NavigationLink(destination: ProfileView(privyManager: privyManager)) {
                         Text("Profile")
                             .padding()
