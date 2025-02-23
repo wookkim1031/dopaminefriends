@@ -286,16 +286,16 @@ class PrivyManager : ObservableObject{
                 
                 //let blockChainClient = BlockchainClient(apiClient: solana_client)
                 //print(blockChainClient)
-                
+                let amountToSend: UInt64 = 100_000_000
                 //signers transaction
                 var tx = Transaction()
                 tx.instructions.append(SystemProgram.transferInstruction(
                      from: WalletPK,
-                     to: try PublicKey(string: "9NvE68JVWHHHGLp5NNELtM5fiBw6SXHrzqQJjUqaykC1"),
-                     lamports: 100000000000000
+                     to: try PublicKey(string: "A6aGukho6tY2abd8h7pcsLsQRgncu9WBjy3mYSjqUTAJ"),
+                     lamports: amountToSend
                      )
                 )
-                tx.recentBlockhash = try await solana_client.getRecentBlockhash()
+                tx.recentBlockhash = try await solana_client.getLatestBlockhash()
                 tx.feePayer = WalletPK
                 
                 let message = try tx.compileMessage().serialize().base64EncodedString()

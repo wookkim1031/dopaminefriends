@@ -11,10 +11,10 @@
 		4AC9901284121888AC308477 /* Pods_DopamineFriends_DopamineFriendsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB129AF5953D16F1D83C622 /* Pods_DopamineFriends_DopamineFriendsUITests.framework */; };
 		E413169E2D5BFFDE00A7C72D /* PrivyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E413169D2D5BFFDE00A7C72D /* PrivyManager.swift */; };
 		E44DF0392D67EE4200161380 /* Privy in Frameworks */ = {isa = PBXBuildFile; productRef = E44DF0382D67EE4200161380 /* Privy */; };
-		E44DF03B2D67EE4600161380 /* SolanaSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E44DF03A2D67EE4600161380 /* SolanaSwift */; };
 		E47DF3E92D61EA74009743EC /* RadioButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47DF3E82D61EA74009743EC /* RadioButtonHelper.swift */; };
 		E4B5C1572D6B1E33002F8EB2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4B5C1562D6B1E33002F8EB2 /* GoogleService-Info.plist */; };
 		E4B5C15B2D6B221D002F8EB2 /* CreateBettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B5C15A2D6B221D002F8EB2 /* CreateBettingView.swift */; };
+		E4C47BBA2D6BD8A600CA055F /* SolanaSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E4C47BB92D6BD8A600CA055F /* SolanaSwift */; };
 		E4D54C492D650F8E006AEACA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D54C482D650F8E006AEACA /* ProfileView.swift */; };
 		E4F5E2002D5920A8004061D1 /* DopamineFriendsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E1FF2D5920A8004061D1 /* DopamineFriendsApp.swift */; };
 		E4F5E2022D5920A8004061D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E2012D5920A8004061D1 /* ContentView.swift */; };
@@ -84,7 +84,7 @@
 			files = (
 				E44DF0392D67EE4200161380 /* Privy in Frameworks */,
 				E4F5E22D2D5920EE004061D1 /* FirebaseCore in Frameworks */,
-				E44DF03B2D67EE4600161380 /* SolanaSwift in Frameworks */,
+				E4C47BBA2D6BD8A600CA055F /* SolanaSwift in Frameworks */,
 				E4F5E22F2D5920F2004061D1 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,7 +242,7 @@
 				E4F5E22C2D5920EE004061D1 /* FirebaseCore */,
 				E4F5E22E2D5920F2004061D1 /* FirebaseFirestore */,
 				E44DF0382D67EE4200161380 /* Privy */,
-				E44DF03A2D67EE4600161380 /* SolanaSwift */,
+				E4C47BB92D6BD8A600CA055F /* SolanaSwift */,
 			);
 			productName = DopamineFriends;
 			productReference = E4F5E1FC2D5920A8004061D1 /* DopamineFriends.app */;
@@ -321,7 +321,7 @@
 			packageReferences = (
 				E4F5E22A2D5920E5004061D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				E443A87D2D67EDB400FBE303 /* XCRemoteSwiftPackageReference "privy-ios" */,
-				E443A87E2D67EDBB00FBE303 /* XCRemoteSwiftPackageReference "solana-swift" */,
+				E4C47BB82D6BD87300CA055F /* XCRemoteSwiftPackageReference "solana-swift" */,
 			);
 			productRefGroup = E4F5E1FD2D5920A8004061D1 /* Products */;
 			projectDirPath = "";
@@ -787,9 +787,9 @@
 				minimumVersion = 1.8.1;
 			};
 		};
-		E443A87E2D67EDBB00FBE303 /* XCRemoteSwiftPackageReference "solana-swift" */ = {
+		E4C47BB82D6BD87300CA055F /* XCRemoteSwiftPackageReference "solana-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/wannabehero/solana-swift";
+			repositoryURL = "https://github.com/wookkim1031/solana-swift";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -811,9 +811,9 @@
 			package = E443A87D2D67EDB400FBE303 /* XCRemoteSwiftPackageReference "privy-ios" */;
 			productName = Privy;
 		};
-		E44DF03A2D67EE4600161380 /* SolanaSwift */ = {
+		E4C47BB92D6BD8A600CA055F /* SolanaSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E443A87E2D67EDBB00FBE303 /* XCRemoteSwiftPackageReference "solana-swift" */;
+			package = E4C47BB82D6BD87300CA055F /* XCRemoteSwiftPackageReference "solana-swift" */;
 			productName = SolanaSwift;
 		};
 		E4F5E22C2D5920EE004061D1 /* FirebaseCore */ = {
