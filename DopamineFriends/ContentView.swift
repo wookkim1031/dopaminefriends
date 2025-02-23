@@ -45,7 +45,13 @@ struct ContentView: View {
                 } else if case .authenticated = privyManager.authState {
                    
                     BettingListView()
-                    CreateBettingView(privyManager: privyManager)
+                    NavigationLink(destination: CreateBettingView(privyManager: privyManager)) {
+                        Text("Create a bet")
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                     NavigationLink(destination: ProfileView(privyManager: privyManager)) {
                         Text("Profile")
                             .padding()
