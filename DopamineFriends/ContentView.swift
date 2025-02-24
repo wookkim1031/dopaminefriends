@@ -43,30 +43,27 @@ struct ContentView: View {
                 if privyManager.isLoading {
                     ProgressView()
                 } else if case .authenticated = privyManager.authState {
-                   
-                    BettingListView()
-                    NavigationLink(destination: CreateBettingView(privyManager: privyManager)) {
-                        Text("Create a bet")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                    if privyManager.isLoading {
+                        ProgressView("Creating Wallet...")
+                    } else if let address = privyManager.selectedWallet?.address {
+                        BettingListView()
+                        NavigationLink(destination: CreateBettingView(privyManager: privyManager)) {
+                            Text("Create a bet")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        NavigationLink(destination: ProfileView(privyManager: privyManager)) {
+                            Text("Profile")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
-                    NavigationLink(destination: ProfileView(privyManager: privyManager)) {
-                        Text("Profile")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    .buttonStyle(PlainButtonStyle())
                 } else {
-                    Button {
-                        privyManager.signInWithApple()
-                    } label : {
-                        Text ("Sign in with Apple")
-                    }
-                    
                     Button {
                         activeSheet = .emailInput
                     } label: {
@@ -110,6 +107,10 @@ struct ContentView: View {
                             }
                         }
                     }
+                }
+            }.onChange(of: privyManager.authState) { newState in
+                if case .authenticated = newState {
+                    privyManager.createSolanaWallet() // Auto-create wallet when authenticated
                 }
             }
         }
@@ -240,7 +241,7 @@ extension ContentView {
                     Text("N/A")
                 }
             }
-
+/*
             HStack{
                 Text("Send ETH Transaction: ")
                 if let address = privyManager.selectedWallet?.address {
@@ -258,7 +259,7 @@ extension ContentView {
                 } else {
                     Text("N/A")
                 }
-            }
+            }*/
             HStack{
                 Text("Send Solana Transaction: ")
                 if let address = privyManager.selectedWallet?.address {

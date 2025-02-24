@@ -9,7 +9,6 @@ import Foundation
 import PrivySDK
 import SolanaSwift
 
-
 class PrivyManager : ObservableObject{
     let config = PrivyConfig(appId: "cm70p2l6g0067ii2smm44e3hv", appClientId: "client-WY5gwZdsAXeYgqDUeoD14JqwLppccakqmMCHR34ZTJDGU")
     let privy: Privy
@@ -18,7 +17,7 @@ class PrivyManager : ObservableObject{
     @Published var authState = AuthState.unauthenticated
     @Published var isLoading = false
     @Published var chain: SupportedChain = SupportedChain.sepolia
-    @Published var balance = "0.00"
+    @Published var balance: UInt64 = 0 
     @Published var embeddedWalletState = EmbeddedWalletState.notCreated
     @Published var wallets = [EmbeddedWallet]()
     @Published var selectedWallet: EmbeddedWallet?
@@ -45,7 +44,7 @@ class PrivyManager : ObservableObject{
                     return
                 }
             //connecting to the wallet
-                self.wallets = wallets
+            self.wallets = wallets
             self.selectedWallet = wallets.first
         }
     }
@@ -76,7 +75,7 @@ class PrivyManager : ObservableObject{
             }
         }
     }
-    
+    /*
     @MainActor
     func signInWithApple() {
         isLoading = true
@@ -89,7 +88,7 @@ class PrivyManager : ObservableObject{
             }
             isLoading = false
         }
-    }
+    }*/
     
     @MainActor
     func signInWithEmail(email: String) async -> Bool {
@@ -119,7 +118,7 @@ class PrivyManager : ObservableObject{
             return .unauthenticated
         }
     }
-
+    /*
     @MainActor
     func createETHWallet() {
         isLoading=true
@@ -142,7 +141,7 @@ class PrivyManager : ObservableObject{
             }
             isLoading = false
         }
-    }
+    }*/
     
     @MainActor
     func createSolanaWallet() {
@@ -164,7 +163,7 @@ class PrivyManager : ObservableObject{
             }
         }
     }
-    
+    /*
     @MainActor
     func signETHMessage() {
         Task {
@@ -191,7 +190,7 @@ class PrivyManager : ObservableObject{
             print(sigReponse)
         }
     }
-
+*/
     @MainActor
     func signSolanaMessage() {
         Task {
@@ -215,7 +214,7 @@ class PrivyManager : ObservableObject{
             print(signature)
         }
     }
-        
+        /*
     @MainActor
     func sendETHTransaction() async throws {
         guard case .connected(let wallets) = privy.embeddedWallet.embeddedWalletState else {
@@ -256,7 +255,32 @@ class PrivyManager : ObservableObject{
             )
         print("Transaction Hash: \(transactionHash)")
     }
+    */
     
+    @MainActor
+    func getBalance(address: String) async throws {
+        Task {
+            do {
+                let endpoint = APIEndPoint(address: "https://devnet.helius-rpc.com/?api-key=fd8ea508-7378-403b-9e0f-e434908cde8f", network: .devnet)
+                guard case .connected(let wallets) = privy.embeddedWallet.embeddedWalletState else {
+                    throw PrivyWalletError.notConnected
+                }
+                
+                guard let wallet = selectedWallet, wallet.chainType == .solana else {
+                        print("No Solana wallets available")
+                            return
+                }
+                
+                let solana_client = JSONRPCAPIClient(endpoint: endpoint)
+                
+                balance = try await solana_client.getBalance(account: address, commitment: "recent")
+            } catch {
+                print("Error while getting Balance")
+            }
+        }
+        
+        
+    }
     
     
     @MainActor
@@ -286,7 +310,7 @@ class PrivyManager : ObservableObject{
                 
                 //let blockChainClient = BlockchainClient(apiClient: solana_client)
                 //print(blockChainClient)
-                let amountToSend: UInt64 = 100_000_000
+                let amountToSend: UInt64 = 100_000
                 //signers transaction
                 var tx = Transaction()
                 tx.instructions.append(SystemProgram.transferInstruction(

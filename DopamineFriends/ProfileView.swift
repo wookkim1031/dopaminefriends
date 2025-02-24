@@ -25,12 +25,8 @@ struct ProfileView: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("Name: ")
-                        Text("Ki Wook Kim")
-                    }
-                    HStack {
-                        Text("Email: ")
-                        Text("wook.kim@rwth-aachen.de")
+                        Text("Address: ")
+                        Text(privyManager.selectedWallet!.address)
                     }
                     HStack {
                         Text("Wallet Address: ")
@@ -43,31 +39,39 @@ struct ProfileView: View {
                         }
                     }
                 }
+                Button(action: {
+                    Task {
+                        try? await privyManager.getBalance(address: privyManager.selectedWallet!.address)
+                    }
+                }) {
+                    Text("Get Balance")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
                 Button{
                     privyManager.signOut()
                 } label: {
                     Text("Sign out")
                 }
-                Button {
-                    privyManager.createSolanaWallet()
-                } label : {
-                    Text ("Create Solana wallet")
-                }
+                /*
                 Button {
                     privyManager.createETHWallet()
                 } label : {
                     Text ("Create ETH wallet")
-                }
+                }*/
                 Button {
                     privyManager.signSolanaMessage()
                 } label : {
-                    Text ("Sign solana message")
+                    Text ("Sign solana message (Testing use)")
                 }
+                /*
                 Button {
                     privyManager.signETHMessage()
                 } label : {
                     Text ("Sign eth message")
-                }
+                }*/
                 switch privyManager.embeddedWalletState {
                     case .connecting:
                         ConnectingView()
@@ -107,16 +111,6 @@ extension ProfileView {
     
     @ViewBuilder
     func connectedView() -> some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(SupportedChain.allCases, id: \.self) { chain in
-                    RadioButtonHelper(
-                        chain: chain,
-                        selectedNetwork: $selectedChain
-                    )
-                }
-            }
-        }
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text("State: ")
@@ -159,7 +153,7 @@ extension ProfileView {
                     Text("N/A")
                 }
             }
-
+/*
             HStack{
                 Text("Send ETH Transaction: ")
                 if let address = privyManager.selectedWallet?.address {
@@ -177,7 +171,7 @@ extension ProfileView {
                 } else {
                     Text("N/A")
                 }
-            }
+            }*/
             HStack{
                 Text("Send Solana Transaction: ")
                 if let address = privyManager.selectedWallet?.address {

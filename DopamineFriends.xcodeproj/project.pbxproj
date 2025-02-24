@@ -11,6 +11,7 @@
 		4AC9901284121888AC308477 /* Pods_DopamineFriends_DopamineFriendsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB129AF5953D16F1D83C622 /* Pods_DopamineFriends_DopamineFriendsUITests.framework */; };
 		E413169E2D5BFFDE00A7C72D /* PrivyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E413169D2D5BFFDE00A7C72D /* PrivyManager.swift */; };
 		E44DF0392D67EE4200161380 /* Privy in Frameworks */ = {isa = PBXBuildFile; productRef = E44DF0382D67EE4200161380 /* Privy */; };
+		E45AF7912D6D043500731ECC /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45AF7902D6D043500731ECC /* Environment.swift */; };
 		E47DF3E92D61EA74009743EC /* RadioButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47DF3E82D61EA74009743EC /* RadioButtonHelper.swift */; };
 		E4B5C1572D6B1E33002F8EB2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4B5C1562D6B1E33002F8EB2 /* GoogleService-Info.plist */; };
 		E4B5C15B2D6B221D002F8EB2 /* CreateBettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B5C15A2D6B221D002F8EB2 /* CreateBettingView.swift */; };
@@ -58,6 +59,7 @@
 		A46CEF8F69DE115332D02E25 /* Pods-DopamineFriendsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DopamineFriendsTests.release.xcconfig"; path = "Target Support Files/Pods-DopamineFriendsTests/Pods-DopamineFriendsTests.release.xcconfig"; sourceTree = "<group>"; };
 		A8AF428B214CA9FD5678E6CA /* Pods_DopamineFriendsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DopamineFriendsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E413169D2D5BFFDE00A7C72D /* PrivyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivyManager.swift; sourceTree = "<group>"; };
+		E45AF7902D6D043500731ECC /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		E47DF3E82D61EA74009743EC /* RadioButtonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonHelper.swift; sourceTree = "<group>"; };
 		E4B5C1562D6B1E33002F8EB2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E4B5C15A2D6B221D002F8EB2 /* CreateBettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBettingView.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				E4F5E2032D5920A9004061D1 /* Assets.xcassets */,
 				E4F5E2052D5920A9004061D1 /* Preview Content */,
 				E413169D2D5BFFDE00A7C72D /* PrivyManager.swift */,
+				E45AF7902D6D043500731ECC /* Environment.swift */,
 				E4B5C15A2D6B221D002F8EB2 /* CreateBettingView.swift */,
 				F69D2CA52D666FAB0038AF69 /* BettingListView.swift */,
 			);
@@ -442,6 +445,7 @@
 				E413169E2D5BFFDE00A7C72D /* PrivyManager.swift in Sources */,
 				E4B5C15B2D6B221D002F8EB2 /* CreateBettingView.swift in Sources */,
 				E4D54C492D650F8E006AEACA /* ProfileView.swift in Sources */,
+				E45AF7912D6D043500731ECC /* Environment.swift in Sources */,
 				E4F5E2002D5920A8004061D1 /* DopamineFriendsApp.swift in Sources */,
 				F69D2CA62D666FAB0038AF69 /* BettingListView.swift in Sources */,
 			);
