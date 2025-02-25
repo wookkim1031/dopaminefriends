@@ -11,7 +11,7 @@ import Charts // Swift Charts 사용
 
 struct BettingDetailView: View {
     let itemId: String
-    @State private var votes: [Double] = [100, 70, 30] // 투표 수 상태 저장
+    @State private var votes: [Double] = [] // 옵션 개수에 맞게 초기화될 예정
 
     let bettingData: [String: (title: String, options: [String], dateUntil: String)] = [
         "1": ("How many tweets will Elon Musk post in February?", ["100-200", "200-300", "300-400"], "Feb 28, 2025 12:00"),
@@ -39,15 +39,26 @@ struct BettingDetailView: View {
                     }
                     .padding()
                     
-                    // 반도넛 차트
-                    SemiDonutChartView(votes: $votes)
-                        .frame(height: 150)
-                        .padding()
-                    
+                    // 반도넛 차트 또는 안내 메시지
+                                        if totalVotes == 0 {
+                                            Text("You will be the first bettor!")
+                                                .font(.headline)
+                                                .foregroundColor(.gray)
+                                                .frame(height: 150)
+                                                .frame(maxWidth: .infinity)
+                                                .background(Color(.systemGray6))
+                                                .cornerRadius(8)
+                                                .padding()
+                                        } else {
+                                            SemiDonutChartView(votes: $votes)
+                                                .frame(height: 150)
+                                                .padding()
+                                        }
                     // Voting Buttons
                     VStack(spacing: 8) {
-                        ForEach(0..<data.options.count, id: \..self) { index in
-                            Button("Vote for \(data.options[index]) (\(Int(votes[index])) votes)") {
+                        ForEach(0..<data.options.count, id: \.self) { index in
+                            Button("Vote for \(data.options[index]) (\(Int(votes[safe: index] ?? 0)) votes)") {
+                                guard index < votes.count else { return }
                                 votes[index] += 1 // 투표 증가
                             }
                             .buttonStyle(CustomButtonStyle(color: colors[index % colors.count]))
@@ -56,19 +67,25 @@ struct BettingDetailView: View {
                     .padding(.horizontal)
                     
                     // Previous Data Section
-                                    SectionView(title: "Previous Data in 2023") {
-                                        previousDataView()
-                                    }
-                                    .padding()
-                                    
-                                    // Prediction Section (Line Graph 추가)
-                                    SectionView(title: "Prediction (Yearly Student Count)") {
-                                        LineGraphView()
-                                            .frame(height: 250)
-                                    }
-                                    .padding()
+                    SectionView(title: "Previous Data in 2023") {
+                        previousDataView()
+                    }
+                    .padding()
+                    
+                    // Prediction Section (Line Graph 추가)
+                    SectionView(title: "Prediction (Yearly Student Count)") {
+                        LineGraphView()
+                            .frame(height: 250)
+                    }
+                    .padding()
                 }
                 .padding(.bottom, 20)
+                .onAppear {
+                    // 옵션 개수에 맞게 votes 배열 초기화
+                    if votes.isEmpty {
+                        votes = Array(repeating: 0, count: data.options.count)
+                    }
+                }
             }
             .navigationTitle("Betting Detail")
         } else {
@@ -76,6 +93,13 @@ struct BettingDetailView: View {
                 .font(.title2)
                 .foregroundColor(.red)
         }
+    }
+}
+
+// 배열의 안전한 인덱싱을 위한 확장 함수
+extension Array {
+    subscript(safe index: Int) -> Element? {
+        return indices.contains(index) ? self[index] : nil
     }
 }
 
