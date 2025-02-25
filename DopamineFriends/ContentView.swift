@@ -13,124 +13,113 @@
 import SwiftUI
 import Foundation
 import PrivySDK
+import FirebaseCore
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
+}
 
 struct ContentView: View {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State private var isLogginIn = false
     @State private var isLoggingOut = false
     @State private var selectedChain = SupportedChain.sepolia
-    @ObservedObject var privyManager: PrivyManager
+    @StateObject var privyManager: PrivyManager
     @State private var email = ""
     @State private var otp = ""
     @State private var showEmailInput = false
     @State private var tokenstate = false
     @State private var showTokenStateSheet = false
     @State private var activeSheet: ActiveSheet? = nil
-    
+    @State private var navigateToProfile = false
     
     var body : some View {
-        VStack {
-            if privyManager.isLoading {
-                ProgressView()
-            } else if case .authenticated = privyManager.authState {
-                Button{
-                    privyManager.signOut()
-                } label: {
-                    Text("Sign out")
-                }
-                Button {
-                    privyManager.createSolanaWallet()
-                } label : {
-                    Text ("Create Solana wallet")
-                }
-                Button {
-                    privyManager.createETHWallet()
-                } label : {
-                    Text ("Create ETH wallet")
-                }
-                Button {
-                    privyManager.signSolanaMessage()
-                } label : {
-                    Text ("Sign solana message")
-                }
-                Button {
-                    privyManager.signETHMessage()
-                } label : {
-                    Text ("Sign eth message")
-                }
-                switch privyManager.embeddedWalletState {
-                    case .connecting:
-                        ConnectingView()
-                        .onAppear {
-                                        print("Connecting!")
-                                    }
-                    case .connected:
-                        connectedView()
-                        .onAppear {
-                                        print("Connected!")
-                                    }
-                    case .error:
-                        Text("Error on connecting wallet")
-                    @unknown default:
-                        EmptyView()
-                        .onAppear {
-                                        print("Empty View!")
-                                    }
-                }
-                BettingListView()
-            } else {
-                Button {
-                    privyManager.signInWithApple()
-                } label : {
-                    Text ("Sign in with Apple")
-                }
-                
-                Button {
-                    activeSheet = .emailInput
-                } label: {
-                    HStack {
-                        Text("Sign in with Email")
+        NavigationView {
+            VStack {
+                if privyManager.isLoading {
+                    ProgressView()
+                } else if case .authenticated = privyManager.authState {
+                    if privyManager.isLoading {
+                        ProgressView("Creating Wallet...")
+                    } else if let address = privyManager.selectedWallet?.address {
+                        BettingListView()
+                        NavigationLink(destination: CreateBettingView(privyManager: privyManager)) {
+                            Text("Create a bet")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        NavigationLink(destination: ProfileView(privyManager: privyManager)) {
+                            Text("Profile")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                } else {
+                    Button {
+                        activeSheet = .emailInput
+                    } label: {
+                        HStack {
+                            Text("Sign in with Email")
+                        }
                     }
                 }
-            }
-        }.sheet(isPresented: $showEmailInput) {
-            EmailEntryView(email: $email) {
-                Task {
-                    let tokenState  = await privyManager.signInWithEmail(email: email)
-                    showEmailInput = false
-                    
-                    if tokenstate {
-                        showTokenStateSheet = true
-                    }
-                }
-            }
-        }.sheet(item: $activeSheet) { sheet in
-            switch sheet {
-            case .emailInput:
+            }.sheet(isPresented: $showEmailInput) {
                 EmailEntryView(email: $email) {
                     Task {
-                        let tokenState = await privyManager.signInWithEmail(email: email)
-                        if tokenState {
-                            activeSheet = .tokenState
-                        } else {
-                            activeSheet = nil
+                        let tokenState  = await privyManager.signInWithEmail(email: email)
+                        showEmailInput = false
+                        
+                        if tokenstate {
+                            showTokenStateSheet = true
                         }
                     }
                 }
-            case .tokenState:
-                TokenStateView(otp: $otp) {
-                    Task {
-                        let authState = await privyManager.signWithEmailOTP(email: email, otp: otp)
-                        activeSheet = nil
-                        
-                        if case .authenticated = authState {
-                            print("User authenticated")
+            }.sheet(item: $activeSheet) { sheet in
+                switch sheet {
+                case .emailInput:
+                    EmailEntryView(email: $email) {
+                        Task {
+                            let tokenState = await privyManager.signInWithEmail(email: email)
+                            if tokenState {
+                                activeSheet = .tokenState
+                            } else {
+                                activeSheet = nil
+                            }
                         }
                     }
+                case .tokenState:
+                    TokenStateView(otp: $otp) {
+                        Task {
+                            let authState = await privyManager.signWithEmailOTP(email: email, otp: otp)
+                            activeSheet = nil
+                            
+                            if case .authenticated = authState {
+                                print("User authenticated")
+                            }
+                        }
+                    }
+                }
+            }.onChange(of: privyManager.authState) { newState in
+                if case .authenticated = newState {
+                    privyManager.createSolanaWallet() // Auto-create wallet when authenticated
                 }
             }
         }
     }
 }
+    /*            .navigationTitle("Home")
+     .navigationDestination(isPresented: $navigateToProfile) {
+         ProfileView(privyManager: privyManager)*/
+
 
 enum ActiveSheet: Identifiable {
     case emailInput
@@ -235,7 +224,44 @@ extension ContentView {
                 }
             }
             HStack{
-                Text("Send Transaction: ")
+                Text("Switch To Solana Wallet: ")
+                if let solanaWallet = privyManager.wallets.first(where: { $0.chainType == .solana }) {
+                    Button {
+                        Task {
+                                do {
+                                    privyManager.switchWallet(to: solanaWallet.address)
+                                } catch {
+                                    print("Failed to send transaction: \(error)")
+                                }
+                            }
+                    } label : {
+                        Text ("Switch to Solana Wallet")
+                    }
+                } else {
+                    Text("N/A")
+                }
+            }
+/*
+            HStack{
+                Text("Send ETH Transaction: ")
+                if let address = privyManager.selectedWallet?.address {
+                    Button {
+                        Task {
+                                do {
+                                    try await privyManager.sendETHTransaction()
+                                } catch {
+                                    print("Failed to send transaction: \(error)")
+                                }
+                            }
+                    } label : {
+                        Text ("Send ETH Transaction")
+                    }
+                } else {
+                    Text("N/A")
+                }
+            }*/
+            HStack{
+                Text("Send Solana Transaction: ")
                 if let address = privyManager.selectedWallet?.address {
                     Button {
                         Task {
