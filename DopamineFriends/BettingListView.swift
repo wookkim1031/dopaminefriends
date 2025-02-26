@@ -5,13 +5,11 @@
 //
 //  Created by Minseon Kim on 19.02.25.
 //
-
 import SwiftUI
 import FirebaseFirestore
 
 struct BettingItem: Identifiable {
-    let id: UUID = UUID()
-    let itemId: String
+    let id: String 
     let title: String
     let options: [String]
     let dateUntil: String
@@ -19,19 +17,46 @@ struct BettingItem: Identifiable {
 
 struct BettingListView: View {
     @State private var bettingList: [BettingItem] = []
-    let items: [BettingItem] = [
-        BettingItem(itemId: "1", title: "How many tweets will Elon Musk post in February?", options: ["100-200", "200-300", "300-400"], dateUntil: "31.02.2025 12:00"),
-        BettingItem(itemId: "2", title: "Will Johan pass the malo exam?", options: ["Yes", "No"], dateUntil: "31.02.2025 12:00")
-    ]
     
     var body: some View {
         NavigationView {
-            List(items) { item in
-                NavigationLink(destination: BettingDetailView(itemId: item.itemId)) {
-                    BettingRowView(item: item)
+            ScrollView {
+                LazyVStack(spacing: 16) {
+                    ForEach(bettingList) { item in
+                        NavigationLink(destination: BettingDetailView(itemId: item.id)) {
+                            BettingRowView(item: item)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
+                .padding()
+            }
+            .onAppear {
+                fetchBettingData()
+            }
+        }
+    }
+    
+    private func fetchBettingData() {
+        let db = Firestore.firestore()
+        db.collection("bettingEvents").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching betting events: \(error.localizedDescription)")
+                return
+            }
+            
+            if let documents = snapshot?.documents {
+                self.bettingList = documents.compactMap { doc in
+                    let data = doc.data()
+                    guard let title = data["title"] as? String,
+                          let optionsDict = data["options"] as? [String: Int],
+                          let dateUntil = data["dateUntil"] as? String else { return nil }
+                    
+                    let options = Array(optionsDict.keys) // 키 값만 리스트뷰에서 사용
+                    
+                    return BettingItem(id: doc.documentID, title: title, options: options, dateUntil: dateUntil)
                 }
             }
-            .navigationTitle("Betting List")
         }
     }
 }
@@ -40,17 +65,18 @@ struct BettingRowView: View {
     let item: BettingItem
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 12) {
             Text(item.title)
                 .font(.headline)
                 .multilineTextAlignment(.leading)
             
-            HStack {
+            VStack(spacing: 8) {
                 ForEach(item.options, id: \..self) { option in
                     Text(option)
-                        .padding(8)
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 12)
                         .background(Color.gray.opacity(0.2))
-                        .cornerRadius(8)
+                        .cornerRadius(6)
                 }
             }
             
@@ -58,10 +84,13 @@ struct BettingRowView: View {
                 .font(.subheadline)
                 .foregroundColor(.gray)
         }
-        .padding()
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.white)
+        .cornerRadius(12)
+        .shadow(color: Color.gray.opacity(0.2), radius: 4, x: 0, y: 2)
     }
 }
-
 
 struct BettingListView_Previews: PreviewProvider {
     static var previews: some View {
