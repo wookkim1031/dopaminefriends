@@ -20,21 +20,5 @@
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6432AF5C-3406-4AE8-948E-7A20FAFA54E5"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DopamineFriends/BettingListView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "BettingRowView"
-            landmarkType = "14">
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

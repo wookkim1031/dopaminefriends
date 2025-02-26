@@ -9,8 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 
 struct BettingItem: Identifiable {
-    let id: UUID = UUID()
-    let itemId: String
+    let id: String 
     let title: String
     let options: [String]
     let dateUntil: String
@@ -18,23 +17,45 @@ struct BettingItem: Identifiable {
 
 struct BettingListView: View {
     @State private var bettingList: [BettingItem] = []
-    let items: [BettingItem] = [
-        BettingItem(itemId: "1", title: "How many tweets will Elon Musk post in February?", options: ["100-200", "200-300", "300-400"], dateUntil: "29.02.2025 12:00"),
-        BettingItem(itemId: "2", title: "Will Johan pass the malo exam?", options: ["Yes", "No"], dateUntil: "29.02.2025 12:00")
-    ]
     
     var body: some View {
         NavigationView {
             ScrollView {
                 LazyVStack(spacing: 16) {
-                    ForEach(items) { item in
-                        NavigationLink(destination: BettingDetailView(itemId: item.itemId)) {
+                    ForEach(bettingList) { item in
+                        NavigationLink(destination: BettingDetailView(itemId: item.id)) {
                             BettingRowView(item: item)
                         }
-                        .buttonStyle(PlainButtonStyle()) // 기본 버튼 스타일 제거
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
                 .padding()
+            }
+            .onAppear {
+                fetchBettingData()
+            }
+        }
+    }
+    
+    private func fetchBettingData() {
+        let db = Firestore.firestore()
+        db.collection("bettingEvents").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching betting events: \(error.localizedDescription)")
+                return
+            }
+            
+            if let documents = snapshot?.documents {
+                self.bettingList = documents.compactMap { doc in
+                    let data = doc.data()
+                    guard let title = data["title"] as? String,
+                          let optionsDict = data["options"] as? [String: Int],
+                          let dateUntil = data["dateUntil"] as? String else { return nil }
+                    
+                    let options = Array(optionsDict.keys) // 키 값만 리스트뷰에서 사용
+                    
+                    return BettingItem(id: doc.documentID, title: title, options: options, dateUntil: dateUntil)
+                }
             }
         }
     }
@@ -44,16 +65,16 @@ struct BettingRowView: View {
     let item: BettingItem
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) { // ✅ 모든 요소 왼쪽 정렬 & 균일한 간격 유지
+        VStack(alignment: .leading, spacing: 12) {
             Text(item.title)
                 .font(.headline)
                 .multilineTextAlignment(.leading)
             
-            HStack(spacing: 8) { 
-                ForEach(item.options, id: \.self) { option in
+            HStack(spacing: 8) {
+                ForEach(item.options, id: \..self) { option in
                     Text(option)
                         .padding(.vertical, 6)
-                        .padding(.horizontal, 12) // ✅ 버튼 안의 패딩 균일하게
+                        .padding(.horizontal, 12)
                         .background(Color.gray.opacity(0.2))
                         .cornerRadius(6)
                 }
@@ -63,15 +84,13 @@ struct BettingRowView: View {
                 .font(.subheadline)
                 .foregroundColor(.gray)
         }
-        .padding(16) // ✅ 박스 내부 패딩 통일
-        .frame(maxWidth: .infinity, alignment: .leading) // ✅ 모든 박스가 같은 너비를 가지면서 왼쪽 정렬
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.white)
         .cornerRadius(12)
         .shadow(color: Color.gray.opacity(0.2), radius: 4, x: 0, y: 2)
     }
 }
-
-
 
 struct BettingListView_Previews: PreviewProvider {
     static var previews: some View {

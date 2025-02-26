@@ -4,104 +4,131 @@
 //
 //  Created by Minseon Kim on 19.02.25.
 //
-
-import Foundation
 import SwiftUI
-import Charts // Swift Charts 사용
+import Firebase
+import Charts
 
 struct BettingDetailView: View {
     let itemId: String
-    @State private var votes: [Double] = [] // 옵션 개수에 맞게 초기화될 예정
-
-    let bettingData: [String: (title: String, options: [String], dateUntil: String)] = [
-        "1": ("How many tweets will Elon Musk post in February?", ["100-200", "200-300", "300-400"], "Feb 28, 2025 12:00"),
-        "2": ("Will Johan pass the malo exam?", ["Yes", "No"], "Feb 28, 2025 12:00")
-    ]
-
+    @State private var title: String = ""
+    @State private var dateUntil: String = ""
+    @State private var options: [String] = []
+    @State private var votes: [Double] = []
+    
     var totalVotes: Double {
         return votes.reduce(0, +)
     }
-
+    
     var body: some View {
-        if let data = bettingData[itemId] {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    // Header
-                    VStack(alignment: .center) {
-                        Text(data.title)
-                            .font(.title2)
-                            .bold()
-                            .multilineTextAlignment(.center)
-                        
-                        Text(data.dateUntil)
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                    }
-                    .padding()
+        ScrollView {
+            VStack(alignment: .leading) {
+                VStack(alignment: .center) {
+                    Text(title)
+                        .font(.title2)
+                        .bold()
+                        .multilineTextAlignment(.center)
                     
-                    // 반도넛 차트 또는 안내 메시지
-                                        if totalVotes == 0 {
-                                            Text("You will be the first bettor!")
-                                                .font(.headline)
-                                                .foregroundColor(.gray)
-                                                .frame(height: 150)
-                                                .frame(maxWidth: .infinity)
-                                                .background(Color(.systemGray6))
-                                                .cornerRadius(8)
-                                                .padding()
-                                        } else {
-                                            SemiDonutChartView(votes: $votes)
-                                                .frame(height: 150)
-                                                .padding()
-                                        }
-                    // Voting Buttons
-                    VStack(spacing: 8) {
-                        ForEach(0..<data.options.count, id: \.self) { index in
-                            Button("Vote for \(data.options[index]) (\(Int(votes[safe: index] ?? 0)) votes)") {
-                                guard index < votes.count else { return }
-                                votes[index] += 1 // 투표 증가
-                            }
-                            .buttonStyle(CustomButtonStyle(color: colors[index % colors.count]))
-                        }
-                    }
-                    .padding(.horizontal)
-                    
-                    // Previous Data Section
-                    SectionView(title: "Previous Data in 2023") {
-                        previousDataView()
-                    }
-                    .padding()
-                    
-                    // Prediction Section (Line Graph 추가)
-                    SectionView(title: "Prediction (Yearly Student Count)") {
-                        LineGraphView()
-                            .frame(height: 250)
-                    }
-                    .padding()
+                    Text(dateUntil)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
                 }
-                .padding(.bottom, 20)
-                .onAppear {
-                    // 옵션 개수에 맞게 votes 배열 초기화
-                    if votes.isEmpty {
-                        votes = Array(repeating: 0, count: data.options.count)
+                .padding()
+                
+                if totalVotes == 0 {
+                    Text("You will be the first bettor!")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                        .frame(height: 150)
+                        .frame(maxWidth: .infinity)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                        .padding()
+                } else {
+                    SemiDonutChartView(votes: $votes)
+                        .frame(height: 150)
+                        .padding()
+                }
+                
+                VStack(spacing: 8) {
+                    ForEach(0..<options.count, id: \ .self) { index in
+                        Button("Vote for \(options[index]) (\(Int(votes[safe: index] ?? 0)) votes)") {
+                            guard index < votes.count else { return }
+                            updateVote(for: index)
+                        }
+                        .buttonStyle(CustomButtonStyle(color: colors[index % colors.count]))
+                    }
+                }
+                .padding(.horizontal)
+            }
+            .padding(.bottom, 20)
+            .onAppear {
+                fetchBettingData()
+            }
+        }
+        .navigationTitle("Betting Detail")
+    }
+    
+    func fetchBettingData() {
+        let db = Firestore.firestore()
+        db.collection("bettingEvents").document(itemId).getDocument { document, error in
+            if let document = document, document.exists {
+                if let data = document.data() {
+                    title = data["title"] as? String ?? "Unknown Title"
+                    dateUntil = data["dateUntil"] as? String ?? "Unknown Date"
+                    
+                    if let optionsData = data["options"] as? [String: Int] {
+                        options = Array(optionsData.keys)
+                        votes = Array(optionsData.values.map { Double($0) })
                     }
                 }
             }
-            .navigationTitle("Betting Detail")
-        } else {
-            Text("Invalid Betting ID")
-                .font(.title2)
-                .foregroundColor(.red)
+        }
+    }
+    
+    func updateVote(for index: Int) {
+        let db = Firestore.firestore()
+        let ref = db.collection("bettingEvents").document(itemId)
+        
+        ref.getDocument { document, error in
+            if let document = document, document.exists {
+                if var optionsData = document.data()?["options"] as? [String: Int] {
+                    let key = options[index]
+                    optionsData[key, default: 0] += 1
+                    
+                    ref.updateData(["options": optionsData]) { _ in
+                        votes[index] += 1
+                    }
+                }
+            }
         }
     }
 }
 
-// 배열의 안전한 인덱싱을 위한 확장 함수
+// Safe indexing extension
 extension Array {
     subscript(safe index: Int) -> Element? {
         return indices.contains(index) ? self[index] : nil
     }
 }
+
+// Color palette
+let colors: [Color] = [Color.purple, Color.orange, Color.green]
+
+// Custom Button Style
+struct CustomButtonStyle: ButtonStyle {
+    var color: Color
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(color)
+            .foregroundColor(.white)
+            .cornerRadius(8)
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+    }
+}
+
 
 // Swift Charts 기반의 Line Graph
 @available(iOS 16.0, *)
@@ -151,8 +178,6 @@ struct LineGraphView: View {
 }
 
 // 색상 배열 (각 옵션별 색상 설정)
-let colors: [Color] = [Color.purple, Color.orange, Color.green]
-
 struct SemiDonutChartView: View {
     @Binding var votes: [Double]
 
@@ -220,19 +245,6 @@ struct SemiDonutChartView: View {
     }
 }
 
-struct CustomButtonStyle: ButtonStyle {
-    var color: Color
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(color)
-            .foregroundColor(.white)
-            .cornerRadius(8)
-            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
-    }
-}
 
 
 // SectionView for Data Display
