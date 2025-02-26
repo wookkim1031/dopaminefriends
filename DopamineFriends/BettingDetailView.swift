@@ -15,6 +15,9 @@ struct BettingDetailView: View {
     @State private var options: [String] = []
     @State private var votes: [Double] = []
     
+    @State private var showAlert: Bool = false
+    @State private var selectedIndex: Int? = nil
+
     var totalVotes: Double {
         return votes.reduce(0, +)
     }
@@ -50,10 +53,10 @@ struct BettingDetailView: View {
                 }
                 
                 VStack(spacing: 8) {
-                    ForEach(0..<options.count, id: \ .self) { index in
+                    ForEach(0..<options.count, id: \.self) { index in
                         Button("Vote for \(options[index]) (\(Int(votes[safe: index] ?? 0)) votes)") {
-                            guard index < votes.count else { return }
-                            updateVote(for: index)
+                            selectedIndex = index
+                            showAlert = true
                         }
                         .buttonStyle(CustomButtonStyle(color: colors[index % colors.count]))
                     }
@@ -66,6 +69,18 @@ struct BettingDetailView: View {
             }
         }
         .navigationTitle("Betting Detail")
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Confirm Vote"),
+                message: Text("Are you sure you want to vote for '\(options[safe: selectedIndex ?? 0] ?? "Unknown")'?"),
+                primaryButton: .default(Text("Yes")) {
+                    if let index = selectedIndex {
+                        updateVote(for: index)
+                    }
+                },
+                secondaryButton: .cancel()
+            )
+        }
     }
     
     func fetchBettingData() {
@@ -112,8 +127,11 @@ extension Array {
 }
 
 // Color palette
-let colors: [Color] = [Color.purple, Color.orange, Color.green]
-
+let colors: [Color] = [
+    Color(hex: "#7E82AE"), 
+    Color(hex: "#FFCA65"),
+    Color(hex: "#67AEA5")
+]
 // Custom Button Style
 struct CustomButtonStyle: ButtonStyle {
     var color: Color
@@ -128,7 +146,6 @@ struct CustomButtonStyle: ButtonStyle {
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
     }
 }
-
 
 // Swift Charts 기반의 Line Graph
 @available(iOS 16.0, *)

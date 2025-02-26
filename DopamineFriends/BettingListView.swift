@@ -70,7 +70,7 @@ struct BettingRowView: View {
                 .font(.headline)
                 .multilineTextAlignment(.leading)
             
-            HStack(spacing: 8) {
+            VStack(spacing: 8) {
                 ForEach(item.options, id: \..self) { option in
                     Text(option)
                         .padding(.vertical, 6)
