@@ -235,7 +235,7 @@ class PrivyManager : ObservableObject{
                 print(statuses)
                 if let status = statuses.first, status?.err == nil {
                     let firestoreManager = FirestoreManager()
-                    firestoreManager.getAmount(address: address, amountToAdd: amountToSend) { error in
+                    firestoreManager.sendAmount(address: address, amountToAdd: amountToSend) { error in
                         if let error = error {
                             print("❌ Failed to update amount: \(error.localizedDescription)")
                         } else {

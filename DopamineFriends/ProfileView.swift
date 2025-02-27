@@ -55,23 +55,11 @@ struct ProfileView: View {
                 } label: {
                     Text("Sign out")
                 }
-                /*
-                Button {
-                    privyManager.createETHWallet()
-                } label : {
-                    Text ("Create ETH wallet")
-                }*/
                 Button {
                     privyManager.signSolanaMessage()
                 } label : {
                     Text ("Sign solana message (Testing use)")
                 }
-                /*
-                Button {
-                    privyManager.signETHMessage()
-                } label : {
-                    Text ("Sign eth message")
-                }*/
                 switch privyManager.embeddedWalletState {
                     case .connecting:
                         ConnectingView()

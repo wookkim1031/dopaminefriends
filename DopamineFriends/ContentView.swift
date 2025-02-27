@@ -54,6 +54,13 @@ struct ContentView: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
+                        NavigationLink(destination: SwitchToken(privyManager: privyManager)) {
+                            Text("Get Token")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
                         NavigationLink(destination: ProfileView(privyManager: privyManager)) {
                             Text("Profile")
                                 .padding()

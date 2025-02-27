@@ -11,7 +11,7 @@ import FirebaseFirestore
 class FirestoreManager {
     private let db = Firestore.firestore()
     
-    func getAmount(address: String, amountToAdd: UInt64, completion: @escaping (Error?) -> Void) {
+    func sendAmount(address: String, amountToAdd: UInt64, completion: @escaping (Error?) -> Void) {
         let docRef = db.collection("userWallet").document(address)
         
         docRef.getDocument{ (document, error) in
