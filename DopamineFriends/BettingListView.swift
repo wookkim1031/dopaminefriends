@@ -70,15 +70,7 @@ struct BettingRowView: View {
                 .font(.headline)
                 .multilineTextAlignment(.leading)
             
-            VStack(spacing: 8) {
-                ForEach(item.options, id: \..self) { option in
-                    Text(option)
-                        .padding(.vertical, 6)
-                        .padding(.horizontal, 12)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(6)
-                }
-            }
+        
             
             Text("Ends at: \(item.dateUntil)")
                 .font(.subheadline)

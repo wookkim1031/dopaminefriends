@@ -14,6 +14,8 @@ struct BettingDetailView: View {
     @State private var dateUntil: String = ""
     @State private var options: [String] = []
     @State private var votes: [Double] = []
+    @State private var prices: [Double] = [] // Add this line to store prices
+    @State private var historicalData: [(year: Int, value: Int)] = []
     
     @State private var showAlert: Bool = false
     @State private var selectedIndex: Int? = nil
@@ -54,7 +56,7 @@ struct BettingDetailView: View {
                 
                 VStack(spacing: 8) {
                     ForEach(0..<options.count, id: \.self) { index in
-                        Button("Vote for \(options[index]) (\(Int(votes[safe: index] ?? 0)) votes)") {
+                        Button("Vote for \(options[index]) (\(Int(votes[safe: index] ?? 0)) votes) - \(Int(prices[safe: index] ?? 0))P") {
                             selectedIndex = index
                             showAlert = true
                         }
@@ -62,6 +64,12 @@ struct BettingDetailView: View {
                     }
                 }
                 .padding(.horizontal)
+                
+                if !historicalData.isEmpty {
+                                    LineGraphView(data: historicalData)
+                                        .frame(height: 250)
+                                        .padding()
+                                }
             }
             .padding(.bottom, 20)
             .onAppear {
@@ -95,10 +103,24 @@ struct BettingDetailView: View {
                         options = Array(optionsData.keys)
                         votes = Array(optionsData.values.map { Double($0) })
                     }
+                    
+                    if let pricesData = data["prices"] as? [String: Double] {
+                        prices = options.map { pricesData[$0] ?? 1 } // 옵션 순서에 맞춰 가격 매칭
+                    }
+                    
+                    if let historicalDataDict = data["historicalData"] as? [String: Int] {
+                                           historicalData = historicalDataDict.compactMap { key, value in
+                                               if let year = Int(key) {
+                                                   return (year: year, value: value)
+                                               }
+                                               return nil
+                                           }.sorted { $0.year < $1.year } // 정렬
+                                       }
                 }
             }
         }
     }
+
     
     func updateVote(for index: Int) {
         let db = Firestore.firestore()
@@ -106,12 +128,20 @@ struct BettingDetailView: View {
         
         ref.getDocument { document, error in
             if let document = document, document.exists {
-                if var optionsData = document.data()?["options"] as? [String: Int] {
+                if var optionsData = document.data()?["options"] as? [String: Int],
+                   var pricesData = document.data()?["prices"] as? [String: Double] {
+                    
                     let key = options[index]
                     optionsData[key, default: 0] += 1
+                    let newVoteCount = optionsData[key, default: 0]
                     
-                    ref.updateData(["options": optionsData]) { _ in
-                        votes[index] += 1
+                    // 가격 업데이트 (votes + 1)
+                    pricesData[key] = Double(newVoteCount + 1)
+                    
+                    // Firebase 업데이트
+                    ref.updateData(["options": optionsData, "prices": pricesData]) { _ in
+                        votes[index] = Double(newVoteCount)
+                        prices[index] = Double(newVoteCount + 1) // 로컬 상태 업데이트
                     }
                 }
             }
@@ -128,10 +158,11 @@ extension Array {
 
 // Color palette
 let colors: [Color] = [
-    Color(hex: "#7E82AE"), 
+    Color(hex: "#7E82AE"),
     Color(hex: "#FFCA65"),
     Color(hex: "#67AEA5")
 ]
+
 // Custom Button Style
 struct CustomButtonStyle: ButtonStyle {
     var color: Color
@@ -146,53 +177,48 @@ struct CustomButtonStyle: ButtonStyle {
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
     }
 }
-
 // Swift Charts 기반의 Line Graph
 @available(iOS 16.0, *)
-
 struct LineGraphView: View {
-    let data: [(year: Int, students: Int)] = [
-        (2010, 144), (2011, 455), (2012, 566), (2013, 342), (2014, 342),
-        (2015, 424), (2016, 564), (2017, 799), (2018, 858), (2019, 858),
-        (2020, 815), (2021, 800), (2022, 750), (2023, 720)
-    ]
+    let data: [(year: Int, value: Int)] // 데이터 타입 변경
 
     var body: some View {
         Chart {
             ForEach(data, id: \.year) { item in
                 LineMark(
                     x: .value("Year", item.year),
-                    y: .value("Students", item.students)
+                    y: .value("Value", item.value)
                 )
                 .foregroundStyle(.blue)
-                .interpolationMethod(.catmullRom) //   곡선 부드럽게
-                .lineStyle(StrokeStyle(lineWidth: 3)) //   선 두께
-                
+                .interpolationMethod(.catmullRom)
+                .lineStyle(StrokeStyle(lineWidth: 3))
+
                 PointMark(
                     x: .value("Year", item.year),
-                    y: .value("Students", item.students)
+                    y: .value("Value", item.value)
                 )
-                .foregroundStyle(.red) //   데이터 포인트 강조
+                .foregroundStyle(.red)
                 .annotation {
-                    Text("\(item.students)")
+                    Text("\(item.value)")
                         .font(.caption)
                         .foregroundColor(.gray)
                 }
             }
         }
         .chartYAxis {
-            AxisMarks(position: .leading) //   Y축 왼쪽 정렬
+            AxisMarks(position: .leading)
         }
         .chartXAxis {
-            AxisMarks(values: Array(stride(from: 2010, to: 2024, by: 1))) { value in
+            AxisMarks(values: data.map { $0.year }) { value in
                 AxisValueLabel()
-                    .font(.caption) //   글자 크기 줄이기
-                    .offset(y: 10) //   위치 조정
+                    .font(.caption)
+                    .offset(y: 10)
             }
         }
-        .chartXScale(domain: 2010...2023) //   X축을 연속형 값으로 조정
+        .chartXScale(domain: data.map { $0.year }.min()!...data.map { $0.year }.max()!)
     }
 }
+
 
 // 색상 배열 (각 옵션별 색상 설정)
 struct SemiDonutChartView: View {

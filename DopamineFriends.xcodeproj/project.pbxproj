@@ -27,6 +27,7 @@
 		E4F5E22D2D5920EE004061D1 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = E4F5E22C2D5920EE004061D1 /* FirebaseCore */; };
 		E4F5E22F2D5920F2004061D1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E4F5E22E2D5920F2004061D1 /* FirebaseFirestore */; };
 		E4F5E2342D592221004061D1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5E2332D592221004061D1 /* LoginView.swift */; };
+		F62A742F2D70491100AFBD02 /* BettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62A742E2D70491100AFBD02 /* BettingService.swift */; };
 		F650CA962D5FF797008A09BD /* BettingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F650CA952D5FF797008A09BD /* BettingDetailView.swift */; };
 		F67FAD802D6FA3660003D08A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67FAD7F2D6FA3660003D08A /* ColorExtension.swift */; };
 		F69D2CA62D666FAB0038AF69 /* BettingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69D2CA52D666FAB0038AF69 /* BettingListView.swift */; };
@@ -76,6 +77,7 @@
 		E4F5E21A2D5920A9004061D1 /* DopamineFriendsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DopamineFriendsUITests.swift; sourceTree = "<group>"; };
 		E4F5E21C2D5920A9004061D1 /* DopamineFriendsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DopamineFriendsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E4F5E2332D592221004061D1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		F62A742E2D70491100AFBD02 /* BettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BettingService.swift; sourceTree = "<group>"; };
 		F650CA952D5FF797008A09BD /* BettingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BettingDetailView.swift; sourceTree = "<group>"; };
 		F67FAD7F2D6FA3660003D08A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		F69D2CA52D666FAB0038AF69 /* BettingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BettingListView.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				E4B5C15A2D6B221D002F8EB2 /* CreateBettingView.swift */,
 				F69D2CA52D666FAB0038AF69 /* BettingListView.swift */,
 				F67FAD7F2D6FA3660003D08A /* ColorExtension.swift */,
+				F62A742E2D70491100AFBD02 /* BettingService.swift */,
 			);
 			path = DopamineFriends;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				F650CA962D5FF797008A09BD /* BettingDetailView.swift in Sources */,
 				E4F5E2022D5920A8004061D1 /* ContentView.swift in Sources */,
 				E413169E2D5BFFDE00A7C72D /* PrivyManager.swift in Sources */,
+				F62A742F2D70491100AFBD02 /* BettingService.swift in Sources */,
 				E4B5C15B2D6B221D002F8EB2 /* CreateBettingView.swift in Sources */,
 				E4D54C492D650F8E006AEACA /* ProfileView.swift in Sources */,
 				E45AF7912D6D043500731ECC /* Environment.swift in Sources */,
