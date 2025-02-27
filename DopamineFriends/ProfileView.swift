@@ -153,32 +153,13 @@ extension ProfileView {
                     Text("N/A")
                 }
             }
-/*
-            HStack{
-                Text("Send ETH Transaction: ")
-                if let address = privyManager.selectedWallet?.address {
-                    Button {
-                        Task {
-                                do {
-                                    try await privyManager.sendETHTransaction()
-                                } catch {
-                                    print("Failed to send transaction: \(error)")
-                                }
-                            }
-                    } label : {
-                        Text ("Send ETH Transaction")
-                    }
-                } else {
-                    Text("N/A")
-                }
-            }*/
             HStack{
                 Text("Send Solana Transaction: ")
                 if let address = privyManager.selectedWallet?.address {
                     Button {
                         Task {
                                 do {
-                                    try await privyManager.sendTransaction(address: address, amount: "3000")
+                                    try await privyManager.sendTransaction(address: address, amount: 300)
                                 } catch {
                                     print("Failed to send transaction: \(error)")
                                 }
@@ -193,3 +174,4 @@ extension ProfileView {
         }
     }
 }
+

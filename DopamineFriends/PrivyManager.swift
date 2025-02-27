@@ -7,6 +7,7 @@
 
 import Foundation
 import PrivySDK
+import FirebaseFirestore
 import SolanaSwift
 
 class PrivyManager : ObservableObject{
@@ -75,20 +76,6 @@ class PrivyManager : ObservableObject{
             }
         }
     }
-    /*
-    @MainActor
-    func signInWithApple() {
-        isLoading = true
-        Task{
-            do {
-                let authSession = try await privy.oAuth.login(with: .apple)
-                print("Login successful: \(authSession)")
-            } catch {
-                debugPrint("Error Apple \(error)")
-            }
-            isLoading = false
-        }
-    }*/
     
     @MainActor
     func signInWithEmail(email: String) async -> Bool {
@@ -118,31 +105,7 @@ class PrivyManager : ObservableObject{
             return .unauthenticated
         }
     }
-    /*
-    @MainActor
-    func createETHWallet() {
-        isLoading=true
-        guard case .authenticated = privy.authState else {
-            print("User is not authenticated")
-            return
-        }
-        Task {
-            do {
-                // Create the primary (HD index == 0) Ethereum wallet
-                let ethereumWallet = try await privy.embeddedWallet.createWallet(chainType: .ethereum)
 
-                // Create an additional (HD index == 1) Ethereum wallet
-                // If allowAdditional was unset, or set to false, this method would throw an error
-                let additionalEmbeddedWallet = try await privy.embeddedWallet.createWallet(chainType: .ethereum, allowAdditional: true)
-                print("Create ETH Wallet \(ethereumWallet)")
-                print("Create Wallet \(additionalEmbeddedWallet)")
-            } catch {
-                print("Error creating ETH wallet \(error)")
-            }
-            isLoading = false
-        }
-    }*/
-    
     @MainActor
     func createSolanaWallet() {
         isLoading=true
@@ -163,34 +126,7 @@ class PrivyManager : ObservableObject{
             }
         }
     }
-    /*
-    @MainActor
-    func signETHMessage() {
-        Task {
-            guard case .connected(let wallets) = privy.embeddedWallet.embeddedWalletState else {
-                print("Wallet not connected")
-                return
-            }
 
-            guard let wallet = wallets.first, wallet.chainType == .ethereum else {
-                print("No Ethereum wallets available")
-                return
-            }
-
-            // Get the provider for wallet
-            let provider = try privy.embeddedWallet.getEthereumProvider(for: wallet.address)
-
-            let sigReponse = try await provider.request(
-                RpcRequest(
-                    method: "personal_sign",
-                    params: ["This is the message that is being signed", wallet.address]
-                )
-            )
-            
-            print(sigReponse)
-        }
-    }
-*/
     @MainActor
     func signSolanaMessage() {
         Task {
@@ -214,48 +150,6 @@ class PrivyManager : ObservableObject{
             print(signature)
         }
     }
-        /*
-    @MainActor
-    func sendETHTransaction() async throws {
-        guard case .connected(let wallets) = privy.embeddedWallet.embeddedWalletState else {
-            print("Wallet not connected")
-            return
-        }
-        
-        guard let wallet = selectedWallet, wallet.chainType == .ethereum else {
-            print("No ETH Wallets available")
-            return
-        }
-        
-        let valueHex = String(format: "0x%llx", 100000000000000)
-
-        // Define transaction parameters
-        let txParams = try JSONEncoder().encode([
-            "value": valueHex, // Use the hex value
-            "to": "0x795e5a42cA9D9ccCA20CA802F4BE33cf26d1a506", // Destination address
-            "chainId": "0xaa36a7", // Sepolia chainId as hex
-            "from": wallet.address, // Sender address
-        ])
-        
-        guard let txString = String(data: txParams, encoding: .utf8) else {
-                print("Data parse error")
-                return
-            }
-        
-        // Get RPC provider for wallet
-        let provider = try privy.embeddedWallet.getEthereumProvider(for: wallet.address)
-        print("RPC Endpoint: \(provider)")
-        
-        // Send transaction
-        let transactionHash = try await provider.request(
-                RpcRequest(
-                    method: "eth_sendTransaction",
-                    params: [txString] // Pass the dictionary, not a string
-                )
-            )
-        print("Transaction Hash: \(transactionHash)")
-    }
-    */
     
     @MainActor
     func getBalance(address: String) async throws {
@@ -284,7 +178,7 @@ class PrivyManager : ObservableObject{
     
     
     @MainActor
-    func sendTransaction(address: String, amount: String) async throws{
+    func sendTransaction(address: String, amount: UInt64) async throws{
         Task {
             do {
                 let endpoint = APIEndPoint(address: "https://devnet.helius-rpc.com/?api-key=fd8ea508-7378-403b-9e0f-e434908cde8f", network: .devnet)
@@ -310,7 +204,7 @@ class PrivyManager : ObservableObject{
                 
                 //let blockChainClient = BlockchainClient(apiClient: solana_client)
                 //print(blockChainClient)
-                let amountToSend: UInt64 = 100_000
+                let amountToSend = amount * 10_000
                 //signers transaction
                 var tx = Transaction()
                 tx.instructions.append(SystemProgram.transferInstruction(
@@ -336,6 +230,21 @@ class PrivyManager : ObservableObject{
                 let transactionId = try await solana_client.sendTransaction(transaction: tx.serialize().base64EncodedString())
                 print("Transaction sent successfully! TxID:", transactionId)
                 print(tx)
+                let statuses = try await solana_client.getSignatureStatuses(signatures: [transactionId])
+                print("STATUSES:")
+                print(statuses)
+                if let status = statuses.first, status?.err == nil {
+                    let firestoreManager = FirestoreManager()
+                    firestoreManager.getAmount(address: address, amountToAdd: amountToSend) { error in
+                        if let error = error {
+                            print("❌ Failed to update amount: \(error.localizedDescription)")
+                        } else {
+                            print("✅ Amount updated successfully!")
+                        }
+                    }
+                } else {
+                    print("Transaction failed!")
+                }
             } catch {
                 print("Error while sending transaction \(error)")
             }
